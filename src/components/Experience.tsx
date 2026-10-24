@@ -13,8 +13,6 @@ import {
   Maximize2,
   ChevronLeft,
   ChevronRight,
-  ChevronDown,
-  ChevronUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
@@ -207,15 +205,24 @@ const activityPhotos: ActivityPhoto[] = [
   },
 ];
 
-// Featured 6-photo interlocking mosaic (Columns: Tall/Short, Short/Tall, Tall/Short)
-const featuredMosaicColumns: ActivityPhoto[][] = [
-  // Kolom 1: Atas Portrait, Bawah Landscape
-  [activityPhotos[0], activityPhotos[1]],
-  // Kolom 2: Atas Landscape, Bawah Portrait (Interlocking)
-  [activityPhotos[2], activityPhotos[3]],
-  // Kolom 3: Atas Portrait, Bawah Landscape
-  [activityPhotos[4], activityPhotos[5]],
+// 4-Column Asymmetric Staggered Arrangement (All 14 Activity Photos shown directly)
+const staggeredMosaicColumns: ActivityPhoto[][] = [
+  // Kolom 1 (Offset 0px): Wisuda (portrait), Purwoharjo BAST (landscape), Mentoring Coding (square), Candid Kampus (portrait)
+  [activityPhotos[4], activityPhotos[6], activityPhotos[5], activityPhotos[13]],
+  // Kolom 2 (Offset +26px): Indo GoPermit Bali (landscape), Sony Alpha (portrait), Penyaluran Sempu (landscape)
+  [activityPhotos[2], activityPhotos[0], activityPhotos[8]],
+  // Kolom 3 (Offset +8px): Volunteer S2O (landscape), Workspace Bali (portrait), Penyaluran Sumberasri (portrait), Capacity Building (landscape)
+  [activityPhotos[12], activityPhotos[3], activityPhotos[7], activityPhotos[9]],
+  // Kolom 4 (Offset +20px): Pantai Boom (landscape), Malam Puncak (landscape), Tim Magang Hummatech (landscape)
+  [activityPhotos[1], activityPhotos[10], activityPhotos[11]],
 ];
+
+const categoryMeta: Record<string, { label: string; color: string }> = {
+  kepanitiaan: { label: "Kepanitiaan", color: "#c084fc" },
+  magang: { label: "Magang", color: "#38bdf8" },
+  kerja: { label: "BULOG", color: "#34d399" },
+  volunteer: { label: "Relawan", color: "#fbbf24" },
+};
 
 const activityCategories = [
   { key: "all", label: "Semua Kegiatan", count: activityPhotos.length },
@@ -274,7 +281,6 @@ const typeBadgeConfig: Record<string, { label: string; icon: React.ReactNode; co
 
 export default function Experience() {
   const [activeActivityCat, setActiveActivityCat] = useState("all");
-  const [isExpanded, setIsExpanded] = useState(false);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
   const [activeTimelineTab, setActiveTimelineTab] = useState("all");
 
@@ -365,10 +371,10 @@ export default function Experience() {
             <div className="mosaic-header-sub">
               <span className="mosaic-tag-pill">
                 <Camera size={13} />
-                <span>DOKUMENTASI FOTO KEGIATAN</span>
+                <span>GALERI DOKUMENTASI KEGIATAN</span>
               </span>
               <p className="mosaic-hint-text">
-                Foto-foto asli kegiatan kepanitiaan kampus, magang industri di software house, penyaluran bantuan pangan, dan kegiatan relawan. Klik untuk memperbesar.
+                Foto-foto asli dokumentasi kepanitiaan kampus, magang industri teknologi, kerja lapangan bantuan pangan BULOG, dan kegiatan relawan. Klik untuk tampilan penuh.
               </p>
             </div>
 
@@ -378,10 +384,7 @@ export default function Experience() {
                 <button
                   key={cat.key}
                   className={`activity-filter-btn ${activeActivityCat === cat.key ? "active" : ""}`}
-                  onClick={() => {
-                    setActiveActivityCat(cat.key);
-                    setIsExpanded(false);
-                  }}
+                  onClick={() => setActiveActivityCat(cat.key)}
                 >
                   <span>{cat.label}</span>
                   <span style={{ opacity: 0.75, fontSize: "0.72rem" }}>({cat.count})</span>
@@ -389,92 +392,89 @@ export default function Experience() {
               ))}
             </div>
 
-            {/* Layout 1: Default 6-Photo Clean Interlocking Mosaic (When in "all" & not expanded) */}
-            {activeActivityCat === "all" && !isExpanded ? (
-              <div className="mosaic-columns-grid">
-                {featuredMosaicColumns.map((column, colIdx) => (
-                  <div key={colIdx} className="mosaic-column">
-                    {column.map((photo) => (
-                      <div
-                        key={photo.id}
-                        className={`mosaic-photo-card ${photo.aspect}`}
-                        onClick={() => openLightboxByPhoto(photo)}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => e.key === "Enter" && openLightboxByPhoto(photo)}
-                      >
-                        <img
-                          src={photo.src}
-                          alt={photo.alt}
-                          className="mosaic-card-img"
-                          style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
-                          loading="lazy"
-                        />
-                        <div className="mosaic-card-overlay">
-                          <span className="mosaic-card-tag">{photo.tag}</span>
-                          <span className="mosaic-card-caption">{photo.caption}</span>
-                          <Maximize2 size={16} className="mosaic-zoom-icon" />
+            {/* Layout 1: Staggered 4-Column Mosaic for "all" */}
+            {activeActivityCat === "all" ? (
+              <div className="staggered-mosaic-container">
+                {staggeredMosaicColumns.map((column, colIdx) => (
+                  <div key={colIdx} className={`staggered-column col-${colIdx + 1}`}>
+                    {column.map((photo, itemIdx) => {
+                      const isTiltLeft = (colIdx + itemIdx) % 2 === 0;
+                      const cat = categoryMeta[photo.category] || { label: photo.tag, color: "#34d399" };
+                      return (
+                        <div
+                          key={photo.id}
+                          className={`mosaic-photo-card ${photo.aspect} ${isTiltLeft ? "tilt-left" : "tilt-right"}`}
+                          onClick={() => openLightboxByPhoto(photo)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => e.key === "Enter" && openLightboxByPhoto(photo)}
+                        >
+                          <img
+                            src={photo.src}
+                            alt={photo.alt}
+                            className="mosaic-card-img"
+                            style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
+                            loading="lazy"
+                          />
+                          <div className="mosaic-badge-pill" style={{ color: cat.color }}>
+                            <span className="mosaic-badge-dot" style={{ backgroundColor: cat.color }} />
+                            <span>{cat.label}</span>
+                          </div>
+                          <div className="mosaic-card-overlay">
+                            <span className="mosaic-card-location">{photo.location}</span>
+                            <span className="mosaic-card-caption">{photo.caption}</span>
+                          </div>
+                          <div className="mosaic-zoom-btn">
+                            <Maximize2 size={13} />
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ))}
               </div>
             ) : (
-              /* Layout 2: Masonry Grid of Filtered or All Activity Photos */
+              /* Layout 2: Adaptive Grid for Category Filtered View */
               <motion.div
-                className="all-activity-grid"
+                className="activity-filtered-grid"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                {displayedPhotos.map((photo) => (
-                  <div
-                    key={photo.id}
-                    className={`mosaic-photo-card ${photo.aspect}`}
-                    onClick={() => openLightboxByPhoto(photo)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => e.key === "Enter" && openLightboxByPhoto(photo)}
-                  >
-                    <img
-                      src={photo.src}
-                      alt={photo.alt}
-                      className="mosaic-card-img"
-                      style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
-                      loading="lazy"
-                    />
-                    <div className="mosaic-card-overlay">
-                      <span className="mosaic-card-tag">{photo.tag}</span>
-                      <span className="mosaic-card-caption">{photo.caption}</span>
-                      <Maximize2 size={16} className="mosaic-zoom-icon" />
+                {displayedPhotos.map((photo, index) => {
+                  const isTiltLeft = index % 2 === 0;
+                  const cat = categoryMeta[photo.category] || { label: photo.tag, color: "#34d399" };
+                  return (
+                    <div
+                      key={photo.id}
+                      className={`mosaic-photo-card ${photo.aspect} ${isTiltLeft ? "tilt-left" : "tilt-right"}`}
+                      onClick={() => openLightboxByPhoto(photo)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === "Enter" && openLightboxByPhoto(photo)}
+                    >
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        className="mosaic-card-img"
+                        style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
+                        loading="lazy"
+                      />
+                      <div className="mosaic-badge-pill" style={{ color: cat.color }}>
+                        <span className="mosaic-badge-dot" style={{ backgroundColor: cat.color }} />
+                        <span>{cat.label}</span>
+                      </div>
+                      <div className="mosaic-card-overlay">
+                        <span className="mosaic-card-location">{photo.location}</span>
+                        <span className="mosaic-card-caption">{photo.caption}</span>
+                      </div>
+                      <div className="mosaic-zoom-btn">
+                        <Maximize2 size={13} />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </motion.div>
-            )}
-
-            {/* Toggle Button to Expand / Collapse All Photos in "all" tab */}
-            {activeActivityCat === "all" && (
-              <div className="mosaic-expand-wrap">
-                <button
-                  className="mosaic-expand-toggle-btn"
-                  onClick={() => setIsExpanded(!isExpanded)}
-                  aria-label="Lihat semua foto kegiatan"
-                >
-                  {isExpanded ? (
-                    <>
-                      <ChevronUp size={16} />
-                      <span>Tampilkan 6 Foto Utama</span>
-                    </>
-                  ) : (
-                    <>
-                      <ChevronDown size={16} />
-                      <span>Lihat Semua Foto Kegiatan ({activityPhotos.length} Foto)</span>
-                    </>
-                  )}
-                </button>
-              </div>
             )}
           </div>
         </AnimatedSection>
