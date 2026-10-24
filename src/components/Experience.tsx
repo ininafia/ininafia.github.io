@@ -16,15 +16,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import { timeline } from "../data/portfolio";
 
-const collagePhotos = [
+const collagePhotos: Array<{
+  id: string;
+  src: string;
+  alt: string;
+  caption: string;
+  tag: string;
+  aspect: string;
+  rotation: number;
+  objectPosition?: string;
+}> = [
   {
     id: "col-1",
     src: "/foto-profile.png",
     alt: "Momen Kelulusan & Wisuda S1",
-    caption: "Kelulusan S1 Teknik Informatika",
+    caption: "Wisuda S1 Informatika",
     tag: "Graduation",
     aspect: "portrait",
-    rotation: -2.5,
+    rotation: -2,
   },
   {
     id: "col-2",
@@ -37,39 +46,96 @@ const collagePhotos = [
   },
   {
     id: "col-3",
-    src: "/candid-3.jpeg",
-    alt: "Dokumentasi Kegiatan & Diskusi Kampus",
-    caption: "Aktivitas Akademis & Diskusi",
-    tag: "Campus Life",
-    aspect: "portrait",
-    rotation: -1.2,
-  },
-  {
-    id: "col-4",
-    src: "/exp-award.jpg",
-    alt: "Penganugerahan Best Capstone Project System",
-    caption: "Penghargaan Best Capstone",
-    tag: "Achievement",
-    aspect: "landscape",
-    rotation: 2.2,
-  },
-  {
-    id: "col-5",
     src: "/candid-1.jpeg",
     alt: "Potret Mahasiswa Berprestasi",
     caption: "Dedikasi & Semangat Belajar",
     tag: "Milestone",
     aspect: "portrait",
-    rotation: -2,
+    rotation: -1.5,
+    objectPosition: "center 25%",
+  },
+  {
+    id: "col-4",
+    src: "/project-qa.png",
+    alt: "Platform Informasi Lobi Poliwangi - Portal Beasiswa",
+    caption: "Platform Lobi Poliwangi",
+    tag: "Web Portal",
+    aspect: "landscape",
+    rotation: 2,
+  },
+  {
+    id: "col-5",
+    src: "/candid-2.jpeg",
+    alt: "Dokumentasi Candid Pembelajaran",
+    caption: "Eksplorasi Ide & Konsep",
+    tag: "Campus Life",
+    aspect: "portrait",
+    rotation: -2.2,
+    objectPosition: "center 40%",
   },
   {
     id: "col-6",
     src: "/exp-internship.jpg",
     alt: "Pengalaman Kerja Praktik & Coding",
-    caption: "Eksplorasi Web Development",
+    caption: "Workspace Developer",
     tag: "Engineering",
     aspect: "landscape",
+    rotation: 1.6,
+  },
+  {
+    id: "col-7",
+    src: "/exp-education.jpg",
+    alt: "Suasana Belajar & Lab Komputer",
+    caption: "Studi Rekayasa Web",
+    tag: "Academics",
+    aspect: "landscape",
+    rotation: 1.8,
+  },
+  {
+    id: "col-8",
+    src: "/candid-3.jpeg",
+    alt: "Dokumentasi Kegiatan & Diskusi Kampus",
+    caption: "Diskusi & Riset Akademis",
+    tag: "Discussion",
+    aspect: "portrait",
+    rotation: -2,
+    objectPosition: "center 70%",
+  },
+  {
+    id: "col-9",
+    src: "/project-scoring.jpg",
+    alt: "Sistem Penilaian Pencak Silat Real-Time",
+    caption: "Sistem Penilaian Digital",
+    tag: "Capstone",
+    aspect: "landscape",
+    rotation: 2.2,
+  },
+  {
+    id: "col-10",
+    src: "/project-student.png",
+    alt: "Sistem Informasi Akademik Siswa",
+    caption: "Sistem Informasi Akademik",
+    tag: "Systems",
+    aspect: "portrait",
+    rotation: -1.6,
+  },
+  {
+    id: "col-11",
+    src: "/project-dashboard.jpg",
+    alt: "Dashboard Monitoring Data & Analitik",
+    caption: "Dashboard Analitik",
+    tag: "Projects",
+    aspect: "landscape",
     rotation: 1.5,
+  },
+  {
+    id: "col-12",
+    src: "/project-inventory.png",
+    alt: "Sistem Manajemen Inventaris Barang",
+    caption: "Manajemen Inventaris",
+    tag: "Database",
+    aspect: "portrait",
+    rotation: -2.4,
   },
 ];
 
@@ -160,6 +226,7 @@ export default function Experience() {
                     src={photo.src}
                     alt={photo.alt}
                     className="collage-item-img"
+                    style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
                     loading="lazy"
                   />
                   <div className="collage-item-overlay">
