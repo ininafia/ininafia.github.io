@@ -16,166 +16,76 @@ import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import { timeline } from "../data/portfolio";
 
-const collagePhotos: Array<{
+type MosaicPhoto = {
   id: string;
   src: string;
   alt: string;
   caption: string;
   tag: string;
-  aspect: string;
-  rotation: number;
-  offsetY: number;
-  offsetX?: number;
-  zIndex?: number;
+  aspect: "portrait" | "landscape";
   objectPosition?: string;
-}> = [
-  {
-    id: "col-1",
-    src: "/foto-profile.png",
-    alt: "Momen Kelulusan & Wisuda S1",
-    caption: "Wisuda S1 Informatika",
-    tag: "Graduation",
-    aspect: "portrait-tall",
-    rotation: -3.2,
-    offsetY: -22,
-    offsetX: -6,
-    zIndex: 2,
-  },
-  {
-    id: "col-2",
-    src: "/exp-organization.jpg",
-    alt: "Kolaborasi Tim Proyek & Workshop Teknologi",
-    caption: "Kolaborasi Tim & Workshop",
-    tag: "Teamwork",
-    aspect: "landscape-compact",
-    rotation: 2.8,
-    offsetY: 30,
-    offsetX: 4,
-    zIndex: 1,
-  },
-  {
-    id: "col-3",
-    src: "/candid-1.jpeg",
-    alt: "Potret Mahasiswa Berprestasi",
-    caption: "Dedikasi & Semangat Belajar",
-    tag: "Milestone",
-    aspect: "portrait",
-    rotation: -2.2,
-    offsetY: -18,
-    offsetX: -8,
-    zIndex: 3,
-    objectPosition: "center 25%",
-  },
-  {
-    id: "col-4",
-    src: "/project-qa.png",
-    alt: "Platform Informasi Lobi Poliwangi - Portal Beasiswa",
-    caption: "Platform Lobi Poliwangi",
-    tag: "Web Portal",
-    aspect: "landscape-wide",
-    rotation: 3.5,
-    offsetY: 26,
-    offsetX: 6,
-    zIndex: 1,
-  },
-  {
-    id: "col-5",
-    src: "/candid-2.jpeg",
-    alt: "Dokumentasi Candid Pembelajaran",
-    caption: "Eksplorasi Ide & Konsep",
-    tag: "Campus Life",
-    aspect: "portrait-tall",
-    rotation: -2.8,
-    offsetY: -28,
-    offsetX: -5,
-    zIndex: 2,
-    objectPosition: "center 40%",
-  },
-  {
-    id: "col-6",
-    src: "/exp-internship.jpg",
-    alt: "Pengalaman Kerja Praktik & Coding",
-    caption: "Workspace Developer",
-    tag: "Engineering",
-    aspect: "landscape",
-    rotation: 2.2,
-    offsetY: 22,
-    offsetX: 7,
-    zIndex: 1,
-  },
-  {
-    id: "col-7",
-    src: "/exp-education.jpg",
-    alt: "Suasana Belajar & Lab Komputer",
-    caption: "Studi Rekayasa Web",
-    tag: "Academics",
-    aspect: "landscape-wide",
-    rotation: 2.5,
-    offsetY: 24,
-    offsetX: 5,
-    zIndex: 1,
-  },
-  {
-    id: "col-8",
-    src: "/candid-3.jpeg",
-    alt: "Dokumentasi Kegiatan & Diskusi Kampus",
-    caption: "Diskusi & Riset Akademis",
-    tag: "Discussion",
-    aspect: "portrait-tall",
-    rotation: -3.8,
-    offsetY: -26,
-    offsetX: -6,
-    zIndex: 3,
-    objectPosition: "center 70%",
-  },
-  {
-    id: "col-9",
-    src: "/project-scoring.jpg",
-    alt: "Sistem Penilaian Pencak Silat Real-Time",
-    caption: "Sistem Penilaian Digital",
-    tag: "Capstone",
-    aspect: "landscape",
-    rotation: 1.8,
-    offsetY: 20,
-    offsetX: 6,
-    zIndex: 1,
-  },
-  {
-    id: "col-10",
-    src: "/project-student.png",
-    alt: "Sistem Informasi Akademik Siswa",
-    caption: "Sistem Informasi Akademik",
-    tag: "Systems",
-    aspect: "portrait",
-    rotation: -2.6,
-    offsetY: -20,
-    offsetX: -5,
-    zIndex: 2,
-  },
-  {
-    id: "col-11",
-    src: "/project-dashboard.jpg",
-    alt: "Dashboard Monitoring Data & Analitik",
-    caption: "Dashboard Analitik",
-    tag: "Projects",
-    aspect: "landscape-wide",
-    rotation: 2.4,
-    offsetY: 18,
-    offsetX: 5,
-    zIndex: 1,
-  },
-  {
-    id: "col-12",
-    src: "/project-inventory.png",
-    alt: "Sistem Manajemen Inventaris Barang",
-    caption: "Manajemen Inventaris",
-    tag: "Database",
-    aspect: "portrait-tall",
-    rotation: -3.0,
-    offsetY: -22,
-    offsetX: -4,
-    zIndex: 2,
-  },
+};
+
+const mosaicColumns: MosaicPhoto[][] = [
+  // Kolom 1: Atas Portrait, Bawah Landscape
+  [
+    {
+      id: "mos-1",
+      src: "/foto-profile.png",
+      alt: "Momen Kelulusan & Wisuda S1 Informatika",
+      caption: "Wisuda S1 Informatika",
+      tag: "Graduation",
+      aspect: "portrait",
+    },
+    {
+      id: "mos-2",
+      src: "/project-scoring.jpg",
+      alt: "Sistem Penilaian Pencak Silat Real-Time",
+      caption: "Sistem Penilaian Digital",
+      tag: "Capstone System",
+      aspect: "landscape",
+    },
+  ],
+  // Kolom 2: Atas Landscape, Bawah Portrait (Interlocking)
+  [
+    {
+      id: "mos-3",
+      src: "/magang-bali.jpeg",
+      alt: "Presentasi Proyek Sistem Indo GoPermit bersama Tim",
+      caption: "Presentasi Proyek Indo GoPermit",
+      tag: "Internship & Team",
+      aspect: "landscape",
+    },
+    {
+      id: "mos-4",
+      src: "/candid-3.jpeg",
+      alt: "Dokumentasi Riset & Diskusi Kampus",
+      caption: "Dedikasi & Semangat Belajar",
+      tag: "Campus Life",
+      aspect: "portrait",
+      objectPosition: "center 70%",
+    },
+  ],
+  // Kolom 3: Atas Portrait, Bawah Landscape
+  [
+    {
+      id: "mos-5",
+      src: "/candid-1.jpeg",
+      alt: "Potret Mahasiswa Berprestasi",
+      caption: "Potret Mahasiswa Berprestasi",
+      tag: "Milestone",
+      aspect: "portrait",
+      objectPosition: "center 25%",
+    },
+    {
+      id: "mos-6",
+      src: "/magang-jember.png",
+      alt: "Mentoring & Kolaborasi Coding Hummatech",
+      caption: "Kolaborasi Riset & Coding",
+      tag: "Engineering",
+      aspect: "landscape",
+    },
+  ],
 ];
 
 const filterTabs = [
@@ -211,7 +121,7 @@ const typeBadgeConfig: Record<string, { label: string; icon: React.ReactNode; co
 
 export default function Experience() {
   const [activeTab, setActiveTab] = useState("all");
-  const [selectedPhoto, setSelectedPhoto] = useState<(typeof collagePhotos)[0] | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<MosaicPhoto | null>(null);
 
   const filteredItems = timeline.filter((item) => {
     if (activeTab === "all") return true;
@@ -236,50 +146,46 @@ export default function Experience() {
           </div>
         </AnimatedSection>
 
-        {/* Top Scattered Photo Collage (Matching Reference Screenshot) */}
+        {/* 6-Photo Interlocking Mosaic Showcase (Exact Reference Layout) */}
         <AnimatedSection delay={0.1}>
-          <div className="collage-showcase-wrapper">
-            <div className="collage-header-sub">
-              <span className="collage-tag-pill">
+          <div className="mosaic-showcase-wrapper">
+            <div className="mosaic-header-sub">
+              <span className="mosaic-tag-pill">
                 <Camera size={13} />
                 <span>MOMENTS & MILESTONES</span>
               </span>
-              <p className="collage-hint-text">
+              <p className="mosaic-hint-text">
                 Koleksi foto kegiatan, penganugerahan, dan perjalanan akademis. Klik foto untuk memperbesar.
               </p>
             </div>
 
-            {/* 6-Photo Scattered Cluster Grid */}
-            <div className="collage-cluster-grid">
-              {collagePhotos.map((photo) => (
-                <div
-                  key={photo.id}
-                  className={`collage-item ${photo.aspect}`}
-                  style={
-                    {
-                      "--rotation": `${photo.rotation}deg`,
-                      "--offset-y": `${photo.offsetY}px`,
-                      "--offset-x": `${photo.offsetX || 0}px`,
-                      "--z-index": photo.zIndex || 1,
-                    } as React.CSSProperties
-                  }
-                  onClick={() => setSelectedPhoto(photo)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && setSelectedPhoto(photo)}
-                >
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="collage-item-img"
-                    style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
-                    loading="lazy"
-                  />
-                  <div className="collage-item-overlay">
-                    <span className="collage-item-tag">{photo.tag}</span>
-                    <span className="collage-item-caption">{photo.caption}</span>
-                    <Maximize2 size={16} className="collage-zoom-icon" />
-                  </div>
+            {/* 3-Column Clean Interlocking Grid */}
+            <div className="mosaic-columns-grid">
+              {mosaicColumns.map((column, colIdx) => (
+                <div key={colIdx} className="mosaic-column">
+                  {column.map((photo) => (
+                    <div
+                      key={photo.id}
+                      className={`mosaic-photo-card ${photo.aspect}`}
+                      onClick={() => setSelectedPhoto(photo)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === "Enter" && setSelectedPhoto(photo)}
+                    >
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        className="mosaic-card-img"
+                        style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
+                        loading="lazy"
+                      />
+                      <div className="mosaic-card-overlay">
+                        <span className="mosaic-card-tag">{photo.tag}</span>
+                        <span className="mosaic-card-caption">{photo.caption}</span>
+                        <Maximize2 size={16} className="mosaic-zoom-icon" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
