@@ -8,7 +8,7 @@ const navItems = [
   { id: "projects", label: "WORK" },
   { id: "skills", label: "WHAT I CAN DO" },
   { id: "about", label: "ABOUT" },
-  { id: "awards", label: "AWARDS" },
+  { id: "experience", label: "PENGALAMAN & PENDIDIKAN" },
   { id: "trainings", label: "TRAININGS" },
 ];
 
