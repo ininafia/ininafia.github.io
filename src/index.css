@@ -875,6 +875,13 @@ ul, ol {
   filter: drop-shadow(0 2px 4px rgba(29, 155, 240, 0.3));
 }
 
+.about-role-tag {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
 .about-stats-grid {
   display: flex;
   align-items: center;

@@ -115,21 +115,7 @@ export default function About() {
                   <h3 className="about-fullname">{personalInfo.name.toUpperCase()}</h3>
                   <VerifiedBadge />
                 </div>
-
-                <div className="about-stats-grid">
-                  <div className="about-stat-item">
-                    <span className="stat-label">PROJECTS</span>
-                    <span className="stat-val">10+</span>
-                  </div>
-                  <div className="about-stat-item">
-                    <span className="stat-label">CERTIFICATES</span>
-                    <span className="stat-val">9</span>
-                  </div>
-                  <div className="about-stat-item">
-                    <span className="stat-label">BSIT GRADUATED</span>
-                    <span className="stat-val">2024</span>
-                  </div>
-                </div>
+                <span className="about-role-tag">{personalInfo.headline}</span>
               </div>
             </div>
 
