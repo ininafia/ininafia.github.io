@@ -787,8 +787,7 @@ ul, ol {
 .about-modern-container {
   position: relative;
   z-index: 1;
-  max-width: 960px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .about-header-block {
