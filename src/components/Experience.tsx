@@ -58,12 +58,11 @@ const mosaicColumns: MosaicPhoto[][] = [
     },
     {
       id: "mos-4",
-      src: "/candid-3.jpeg",
+      src: "/candid-3-focused.jpeg",
       alt: "Dokumentasi Riset & Diskusi Kampus",
       caption: "Dedikasi & Semangat Belajar",
       tag: "Campus Life",
       aspect: "portrait",
-      objectPosition: "center 70%",
     },
   ],
   // Kolom 3: Atas Portrait, Bawah Landscape
