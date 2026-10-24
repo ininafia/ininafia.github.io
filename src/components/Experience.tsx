@@ -1,8 +1,77 @@
 import { useState } from "react";
-import { GraduationCap, Briefcase, Users, Award, Calendar, MapPin, CheckCircle2, Sparkles } from "lucide-react";
+import {
+  GraduationCap,
+  Briefcase,
+  Users,
+  Award,
+  Calendar,
+  MapPin,
+  CheckCircle2,
+  Sparkles,
+  Camera,
+  X,
+  Maximize2,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import { timeline } from "../data/portfolio";
+
+const collagePhotos = [
+  {
+    id: "col-1",
+    src: "/foto-profile.png",
+    alt: "Momen Kelulusan & Wisuda S1",
+    caption: "Kelulusan S1 Teknik Informatika",
+    tag: "Graduation",
+    aspect: "portrait",
+    rotation: -2.5,
+  },
+  {
+    id: "col-2",
+    src: "/exp-organization.jpg",
+    alt: "Kolaborasi Tim Proyek & Workshop Teknologi",
+    caption: "Kolaborasi Tim & Workshop",
+    tag: "Teamwork",
+    aspect: "landscape",
+    rotation: 1.8,
+  },
+  {
+    id: "col-3",
+    src: "/candid-3.jpeg",
+    alt: "Dokumentasi Kegiatan & Diskusi Kampus",
+    caption: "Aktivitas Akademis & Diskusi",
+    tag: "Campus Life",
+    aspect: "portrait",
+    rotation: -1.2,
+  },
+  {
+    id: "col-4",
+    src: "/exp-award.jpg",
+    alt: "Penganugerahan Best Capstone Project System",
+    caption: "Penghargaan Best Capstone",
+    tag: "Achievement",
+    aspect: "landscape",
+    rotation: 2.2,
+  },
+  {
+    id: "col-5",
+    src: "/candid-1.jpeg",
+    alt: "Potret Mahasiswa Berprestasi",
+    caption: "Dedikasi & Semangat Belajar",
+    tag: "Milestone",
+    aspect: "portrait",
+    rotation: -2,
+  },
+  {
+    id: "col-6",
+    src: "/exp-internship.jpg",
+    alt: "Pengalaman Kerja Praktik & Coding",
+    caption: "Eksplorasi Web Development",
+    tag: "Engineering",
+    aspect: "landscape",
+    rotation: 1.5,
+  },
+];
 
 const filterTabs = [
   { key: "all", label: "Semua" },
@@ -37,6 +106,7 @@ const typeBadgeConfig: Record<string, { label: string; icon: React.ReactNode; co
 
 export default function Experience() {
   const [activeTab, setActiveTab] = useState("all");
+  const [selectedPhoto, setSelectedPhoto] = useState<(typeof collagePhotos)[0] | null>(null);
 
   const filteredItems = timeline.filter((item) => {
     if (activeTab === "all") return true;
@@ -56,13 +126,55 @@ export default function Experience() {
             <span className="section-label">Pengalaman & Rekam Jejak</span>
             <h2 className="section-title">Perjalanan & Aktivitas Profesional</h2>
             <p className="section-subtitle">
-              Dokumentasi rekam jejak akademis, pengalaman industri, kepemimpinan organisasi, serta pencapaian sertifikasi kompetensi.
+              Koleksi dokumentasi visual dan rekam jejak akademis, pengalaman industri, kepemimpinan organisasi, serta pencapaian sertifikasi kompetensi.
             </p>
           </div>
         </AnimatedSection>
 
-        {/* Filter Tabs */}
+        {/* Top Scattered Photo Collage (Matching Reference Screenshot) */}
         <AnimatedSection delay={0.1}>
+          <div className="collage-showcase-wrapper">
+            <div className="collage-header-sub">
+              <span className="collage-tag-pill">
+                <Camera size={13} />
+                <span>MOMENTS & MILESTONES</span>
+              </span>
+              <p className="collage-hint-text">
+                Koleksi foto kegiatan, penganugerahan, dan perjalanan akademis. Klik foto untuk memperbesar.
+              </p>
+            </div>
+
+            {/* 6-Photo Scattered Cluster Grid */}
+            <div className="collage-cluster-grid">
+              {collagePhotos.map((photo) => (
+                <div
+                  key={photo.id}
+                  className={`collage-item ${photo.aspect}`}
+                  style={{ "--rotation": `${photo.rotation}deg` } as React.CSSProperties}
+                  onClick={() => setSelectedPhoto(photo)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === "Enter" && setSelectedPhoto(photo)}
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="collage-item-img"
+                    loading="lazy"
+                  />
+                  <div className="collage-item-overlay">
+                    <span className="collage-item-tag">{photo.tag}</span>
+                    <span className="collage-item-caption">{photo.caption}</span>
+                    <Maximize2 size={16} className="collage-zoom-icon" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </AnimatedSection>
+
+        {/* Filter Tabs */}
+        <AnimatedSection delay={0.15}>
           <div className="experience-filter-bar">
             {filterTabs.map((tab) => (
               <button
@@ -165,6 +277,49 @@ export default function Experience() {
           </AnimatePresence>
         </div>
       </div>
+
+      {/* Lightbox Modal for Photo Preview */}
+      <AnimatePresence>
+        {selectedPhoto && (
+          <div
+            className="photo-lightbox-overlay"
+            onClick={() => setSelectedPhoto(null)}
+            role="dialog"
+            aria-modal="true"
+          >
+            <motion.div
+              className="photo-lightbox-content"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.9, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 15 }}
+              transition={{ duration: 0.25 }}
+            >
+              <button
+                className="photo-lightbox-close"
+                onClick={() => setSelectedPhoto(null)}
+                aria-label="Tutup foto"
+              >
+                <X size={20} />
+              </button>
+
+              <div className="photo-lightbox-media">
+                <img
+                  src={selectedPhoto.src}
+                  alt={selectedPhoto.alt}
+                  className="photo-lightbox-img"
+                />
+              </div>
+
+              <div className="photo-lightbox-caption-bar">
+                <span className="photo-lightbox-tag">{selectedPhoto.tag}</span>
+                <h4 className="photo-lightbox-caption">{selectedPhoto.caption}</h4>
+                <p className="photo-lightbox-alt">{selectedPhoto.alt}</p>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
