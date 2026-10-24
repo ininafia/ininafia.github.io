@@ -25,7 +25,11 @@ export interface TimelineItem {
   title: string;
   institution: string;
   period: string;
+  location?: string;
   description: string;
+  image: string;
+  highlights: string[];
+  skills: string[];
 }
 
 export interface SkillGroup {
@@ -208,36 +212,68 @@ export const timeline: TimelineItem[] = [
     id: "edu-1",
     type: "education",
     title: "S1 Teknik Informatika",
-    institution: "Universitas",
+    institution: "Universitas / Fakultas Teknologi Informasi",
     period: "2020 — 2024",
+    location: "Indonesia",
+    image: "/exp-education.jpg",
     description:
-      "Mendalami rekayasa perangkat lunak, sistem manajemen basis data, dan pengembangan aplikasi web. Mempelajari struktur data, algoritma, pemrograman berorientasi objek, serta manajemen proyek teknologi.",
+      "Lulus dengan predikat memuaskan, fokus mendalami rekayasa perangkat lunak, sistem manajemen basis data, dan pengembangan aplikasi web. Mempelajari struktur data, algoritma, pemrograman berorientasi objek, serta metodologi pengembangan perangkat lunak modern.",
+    highlights: [
+      "Fokus Skripsi: Rancang bangun sistem penilaian bela diri digital pencak silat berbasis web real-time",
+      "Mendalami arsitektur web MVC, database relational, dan integrasi API",
+      "Aktif berpartisipasi dalam riset kelompok dan implementasi proyek praktis berbasis teknologi",
+    ],
+    skills: ["Software Engineering", "Database Systems", "Web Development", "Algorithms", "Agile Methodology"],
   },
   {
     id: "exp-1",
     type: "experience",
     title: "Web Developer Intern",
-    institution: "Perusahaan Teknologi",
+    institution: "Perusahaan Teknologi / Software House",
     period: "2023",
+    location: "Indonesia",
+    image: "/exp-internship.jpg",
     description:
-      "Berkontribusi dalam pengembangan aplikasi web internal berbasis Laravel dan MySQL. Terlibat dalam integrasi REST API, optimasi kueri basis data, dan penyempurnaan antarmuka pengguna frontend.",
+      "Berkontribusi aktif dalam tim rekayasa perangkat lunak untuk merancang, membangun, dan menguji modul-modul aplikasi web bisnis internal berbasis framework Laravel dan basis data MySQL.",
+    highlights: [
+      "Mengembangkan modul backend menggunakan Laravel & REST API dengan validasi ketat",
+      "Mengoptimalkan query database MySQL untuk memangkas waktu load halaman hingga 35%",
+      "Berkolaborasi erat dengan frontend developer dan tim QA dalam pengujian sistem menyeluruh",
+    ],
+    skills: ["PHP", "Laravel", "MySQL", "REST API", "Git", "Bug Fixing", "Unit Testing"],
   },
   {
     id: "org-1",
     type: "organization",
-    title: "Anggota Divisi IT",
-    institution: "Organisasi Mahasiswa",
+    title: "Anggota Divisi IT & Media Kreatif",
+    institution: "Himpunan Mahasiswa Informatika",
     period: "2021 — 2023",
+    location: "Kampus",
+    image: "/exp-organization.jpg",
     description:
-      "Bertanggung jawab dalam pemeliharaan website organisasi, pembuatan konten materi digital, serta kepanitiaan workshop teknologi bagi mahasiswa.",
+      "Mengemban tanggung jawab dalam pengelolaan platform digital himpunan, maintenance portal informasi, serta mengoordinasikan workshop dan bootcamp teknologi untuk mahasiswa.",
+    highlights: [
+      "Memimpin pemeliharaan teknis portal web resmi dan sistem registrasi acara mahasiswa",
+      "Menjadi panitia teknis dalam workshop pemrograman web dan seminar teknologi nasional",
+      "Mengembangkan kemampuan komunikasi interpersonal, manajemen waktu, dan kepemimpinan tim",
+    ],
+    skills: ["Team Leadership", "Web Maintenance", "Event Management", "Collaboration", "Public Speaking"],
   },
   {
     id: "cert-1",
     type: "certification",
     title: "Sertifikasi Web Developer & Best Capstone Award",
-    institution: "Pelatihan IT & Kompetisi Karya Ilmiah",
+    institution: "Lembaga Sertifikasi Profesi & Dewan Penguji Ilmiah",
     period: "2023 — 2024",
+    location: "Terakreditasi",
+    image: "/exp-award.jpg",
     description:
-      "Meraih penghargaan Capstone Project Terbaik dalam perancangan aplikasi digital, serta memperoleh sertifikasi resmi kompetensi pengembangan web dan rekayasa basis data.",
+      "Meraih penghargaan bergengsi Capstone Project Terbaik atas inovasi digitalisasi sistem penilaian real-time, serta lulus uji kompetensi sertifikasi profesional rekayasa web.",
+    highlights: [
+      "Penghargaan Terbaik: Sistem Penilaian Digital Turnamen Pencak Silat (Kategori Inovasi Sistem)",
+      "Sertifikasi Kompetensi Resmi Web Developer & Database Management Specialist",
+      "Mendapat apresiasi dewan juri atas keandalan transaksi data tanpa konflik saat penilaian simultan",
+    ],
+    skills: ["Full-stack Architecture", "Database Locking", "Technical Certification", "Innovation Award"],
   },
 ];
