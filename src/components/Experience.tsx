@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   GraduationCap,
   Briefcase,
@@ -11,83 +11,237 @@ import {
   Camera,
   X,
   Maximize2,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import { timeline } from "../data/portfolio";
 
-type MosaicPhoto = {
+export type ActivityPhoto = {
   id: string;
   src: string;
   alt: string;
   caption: string;
   tag: string;
+  category: "kepanitiaan" | "magang" | "kerja" | "volunteer";
   aspect: "portrait" | "landscape";
+  location?: string;
+  description?: string;
   objectPosition?: string;
 };
 
-const mosaicColumns: MosaicPhoto[][] = [
-  // Kolom 1: Atas Portrait, Bawah Landscape
-  [
-    {
-      id: "mos-1",
-      src: "/foto-profile.png",
-      alt: "Momen Kelulusan & Wisuda S1 Informatika",
-      caption: "Wisuda S1 Informatika",
-      tag: "Graduation",
-      aspect: "portrait",
-    },
-    {
-      id: "mos-2",
-      src: "/project-scoring.jpg",
-      alt: "Sistem Penilaian Pencak Silat Real-Time",
-      caption: "Sistem Penilaian Digital",
-      tag: "Capstone System",
-      aspect: "landscape",
-    },
-  ],
-  // Kolom 2: Atas Landscape, Bawah Portrait (Interlocking)
-  [
-    {
-      id: "mos-3",
-      src: "/magang-bali.jpeg",
-      alt: "Presentasi Proyek Sistem Indo GoPermit bersama Tim",
-      caption: "Presentasi Proyek Indo GoPermit",
-      tag: "Internship & Team",
-      aspect: "landscape",
-    },
-    {
-      id: "mos-4",
-      src: "/candid-3-focused.jpeg",
-      alt: "Dokumentasi Riset & Diskusi Kampus",
-      caption: "Dedikasi & Semangat Belajar",
-      tag: "Campus Life",
-      aspect: "portrait",
-    },
-  ],
-  // Kolom 3: Atas Portrait, Bawah Landscape
-  [
-    {
-      id: "mos-5",
-      src: "/candid-1.jpeg",
-      alt: "Potret Mahasiswa Berprestasi",
-      caption: "Potret Mahasiswa Berprestasi",
-      tag: "Milestone",
-      aspect: "portrait",
-      objectPosition: "center 25%",
-    },
-    {
-      id: "mos-6",
-      src: "/magang-jember.png",
-      alt: "Mentoring & Kolaborasi Coding Hummatech",
-      caption: "Kolaborasi Riset & Coding",
-      tag: "Engineering",
-      aspect: "landscape",
-    },
-  ],
+// 14 Authentic Activity Photos from public folder
+const activityPhotos: ActivityPhoto[] = [
+  {
+    id: "act-1",
+    src: "/kepanitiaan3.jpg",
+    alt: "Nafiatul bertugas sebagai tim dokumentasi media dengan kamera Sony Alpha",
+    caption: "Divisi Dokumentasi Media",
+    tag: "Kepanitiaan & Media",
+    category: "kepanitiaan",
+    aspect: "portrait",
+    location: "Poliwangi, Banyuwangi",
+    description:
+      "Peliputan multimedia dan dokumentasi kegiatan resmi kampus menggunakan kamera profesional Sony Alpha telephoto.",
+  },
+  {
+    id: "act-2",
+    src: "/kepanitiaan2.jpg",
+    alt: "Tim panitia jalan sehat keluarga besar Poliwangi di Pantai Marina Boom",
+    caption: "Panitia Jalan Sehat Poliwangi",
+    tag: "Event Kampus",
+    category: "kepanitiaan",
+    aspect: "landscape",
+    location: "Pantai Marina Boom, Banyuwangi",
+    description:
+      "Kepanitiaan Jalan Sehat Keluarga Besar Politeknik Negeri Banyuwangi dalam rangka menyemarakkan Bulan Merdeka Belajar Kampus Merdeka.",
+  },
+  {
+    id: "act-3",
+    src: "/magang-bali.jpeg",
+    alt: "Presentasi sistem Indo GoPermit di PT Lintas Mediatama Bali bersama tim",
+    caption: "Presentasi Proyek Indo GoPermit",
+    tag: "Magang Industri",
+    category: "magang",
+    aspect: "landscape",
+    location: "PT Lintas Mediatama, Denpasar Bali",
+    description:
+      "Presentasi akhir dan serah terima sistem informasi perizinan Indo GoPermit di hadapan direksi dan tim software engineer.",
+  },
+  {
+    id: "act-4",
+    src: "/magang-bali2.jpg",
+    alt: "Sesi diskusi teknis dan live coding bersama tim developer industri di Bali",
+    caption: "Kolaborasi Tech Developer",
+    tag: "Tech Discussion",
+    category: "magang",
+    aspect: "portrait",
+    location: "Office PT Lintas Mediatama, Bali",
+    description:
+      "Diskusi arsitektur sistem web, sprint review, dan eksplorasi solusi teknis bersama tim software engineering di Bali.",
+  },
+  {
+    id: "act-5",
+    src: "/kepanitiaan1.jpg",
+    alt: "Nafiatul bertugas dalam kepanitiaan wisuda Poliwangi divisi media dan dokumentasi",
+    caption: "Tim Media Wisuda Poliwangi",
+    tag: "Wisuda & Media",
+    category: "kepanitiaan",
+    aspect: "portrait",
+    objectPosition: "center 15%",
+    location: "Kampus Poliwangi",
+    description:
+      "Mengemban amanah sebagai divisi media dan dokumentasi dalam upacara wisuda sarjana Politeknik Negeri Banyuwangi.",
+  },
+  {
+    id: "act-6",
+    src: "/magang-jember.png",
+    alt: "Sesi mentoring dan kolaborasi coding bersama mahasiswi di Hummatech Jember",
+    caption: "Mentoring Coding Hummatech",
+    tag: "Mentoring & Coding",
+    category: "magang",
+    aspect: "landscape",
+    location: "PT Humma Teknologi Indonesia, Jember",
+    description:
+      "Bimbingan langsung logika pemrograman web dan implementasi modul sistem di kelas praktikum Hummatech Jember.",
+  },
+  {
+    id: "act-7",
+    src: "/kerja-pt-bulog2.jpeg",
+    alt: "Penyaluran Bantuan Pangan Beras Pemerintah bersama Kepala Desa Purwoharjo dan tim",
+    caption: "Penyaluran Pangan Purwoharjo",
+    tag: "Kerja Lapangan BULOG",
+    category: "kerja",
+    aspect: "landscape",
+    location: "Balai Desa Purwoharjo, Banyuwangi",
+    description:
+      "Pelaksanaan verifikasi BAST PBP dan penyerahan simbolis bantuan cadangan beras pemerintah bersama kepala desa dan aparatur.",
+  },
+  {
+    id: "act-8",
+    src: "/kerja-pt-bulog1.jpeg",
+    alt: "Dokumentasi serah terima berkas bantuan pangan di Desa Sumberasri Banyuwangi",
+    caption: "Penyaluran Pangan Sumberasri",
+    tag: "Distribusi Lapangan",
+    category: "kerja",
+    aspect: "portrait",
+    location: "Desa Sumberasri, Purwoharjo",
+    description:
+      "Rekonsiliasi berkas penerima manfaat bantuan pangan dan pengecekan fisik logistik cadangan beras di Balai Desa Sumberasri.",
+  },
+  {
+    id: "act-9",
+    src: "/kerja-pt-bulog3.jpeg",
+    alt: "Penyaluran Bantuan Pangan di Balai Kecamatan Sempu Banyuwangi",
+    caption: "Penyaluran Bantuan Pangan Sempu",
+    tag: "Kerja Lapangan BULOG",
+    category: "kerja",
+    aspect: "landscape",
+    location: "Kecamatan Sempu, Banyuwangi",
+    description:
+      "Koordinasi penyaluran bantuan cadangan beras pemerintah di pendopo Kecamatan Sempu bersama warga penerima manfaat.",
+  },
+  {
+    id: "act-10",
+    src: "/kepanitiaan 4.JPG",
+    alt: "Pelatihan Capacity Building Digital Creative tim Humas Poliwangi di atas panggung",
+    caption: "Digital Creative Humas Poliwangi",
+    tag: "Capacity Building",
+    category: "kepanitiaan",
+    aspect: "landscape",
+    location: "Aula Poliwangi, Banyuwangi",
+    description:
+      "Sesi capacity building bersama koordinator supervisor media center untuk penguatan keahlian videografi dan publikasi digital.",
+  },
+  {
+    id: "act-11",
+    src: "/kepanitiaan5.JPG",
+    alt: "Seluruh kru dan panitia pelaksana di atas panggung acara malam keakraban",
+    caption: "Malam Puncak & Keakraban Panitia",
+    tag: "Pentas Seni & Kru",
+    category: "kepanitiaan",
+    aspect: "landscape",
+    location: "Panggung Utama Kampus",
+    description:
+      "Momen kebersamaan kru dan seluruh divisi panitia setelah sukses menyelenggarakan pagelaran panggung malam pentas seni.",
+  },
+  {
+    id: "act-12",
+    src: "/magang-jember1.JPG",
+    alt: "Foto bersama tim magang almamater di depan kantor Hummatech Jember",
+    caption: "Tim Mahasiswa Magang Hummatech",
+    tag: "Magang Industri",
+    category: "magang",
+    aspect: "landscape",
+    location: "Hummatech, Jember",
+    description:
+      "Foto tim mahasiswa magang almamater bersama pembimbing industri di depan kantor PT Humma Teknologi Indonesia.",
+  },
+  {
+    id: "act-13",
+    src: "/volunteer-S2o.jpg",
+    alt: "Panitia relawan dan peserta program kepemudaan S2O di aula konvensi Banyuwangi",
+    caption: "Relawan Volunteer S2O Banyuwangi",
+    tag: "Volunteer & Sosial",
+    category: "volunteer",
+    aspect: "landscape",
+    location: "Aula Stikes Banyuwangi",
+    description:
+      "Berperan aktif sebagai relawan panitia dalam seminar edukasi dan pemberdayaan generasi muda S2O di aula konvensi Banyuwangi.",
+  },
+  {
+    id: "act-14",
+    src: "/candid-1.jpeg",
+    alt: "Potret dedikasi akademis dan perjalanan studi teknik informatika",
+    caption: "Perjalanan Akademis Informatika",
+    tag: "Dedikasi Kampus",
+    category: "volunteer",
+    aspect: "portrait",
+    objectPosition: "center 25%",
+    location: "Banyuwangi",
+    description:
+      "Potret dedikasi selama menempuh studi sarjana teknik informatika dengan semangat eksplorasi dan komitmen belajar.",
+  },
 ];
 
-const filterTabs = [
+// Featured 6-photo interlocking mosaic (Columns: Tall/Short, Short/Tall, Tall/Short)
+const featuredMosaicColumns: ActivityPhoto[][] = [
+  // Kolom 1: Atas Portrait, Bawah Landscape
+  [activityPhotos[0], activityPhotos[1]],
+  // Kolom 2: Atas Landscape, Bawah Portrait (Interlocking)
+  [activityPhotos[2], activityPhotos[3]],
+  // Kolom 3: Atas Portrait, Bawah Landscape
+  [activityPhotos[4], activityPhotos[5]],
+];
+
+const activityCategories = [
+  { key: "all", label: "Semua Kegiatan", count: activityPhotos.length },
+  {
+    key: "kepanitiaan",
+    label: "Kepanitiaan & Event",
+    count: activityPhotos.filter((p) => p.category === "kepanitiaan").length,
+  },
+  {
+    key: "magang",
+    label: "Magang Industri",
+    count: activityPhotos.filter((p) => p.category === "magang").length,
+  },
+  {
+    key: "kerja",
+    label: "Kerja Lapangan BULOG",
+    count: activityPhotos.filter((p) => p.category === "kerja").length,
+  },
+  {
+    key: "volunteer",
+    label: "Relawan & Komunitas",
+    count: activityPhotos.filter((p) => p.category === "volunteer").length,
+  },
+];
+
+const timelineTabs = [
   { key: "all", label: "Semua" },
   { key: "experience", label: "Pengalaman Kerja" },
   { key: "education", label: "Pendidikan" },
@@ -119,13 +273,73 @@ const typeBadgeConfig: Record<string, { label: string; icon: React.ReactNode; co
 };
 
 export default function Experience() {
-  const [activeTab, setActiveTab] = useState("all");
-  const [selectedPhoto, setSelectedPhoto] = useState<MosaicPhoto | null>(null);
+  const [activeActivityCat, setActiveActivityCat] = useState("all");
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+  const [activeTimelineTab, setActiveTimelineTab] = useState("all");
 
-  const filteredItems = timeline.filter((item) => {
-    if (activeTab === "all") return true;
-    return item.type === activeTab;
+  // Determine which photos are active based on the category filter
+  const displayedPhotos =
+    activeActivityCat === "all"
+      ? activityPhotos
+      : activityPhotos.filter((p) => p.category === activeActivityCat);
+
+  // Keyboard navigation for lightbox
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (selectedPhotoIndex === null) return;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setSelectedPhotoIndex((prev) =>
+          prev !== null ? (prev - 1 + displayedPhotos.length) % displayedPhotos.length : 0
+        );
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setSelectedPhotoIndex((prev) =>
+          prev !== null ? (prev + 1) % displayedPhotos.length : 0
+        );
+      } else if (e.key === "Escape") {
+        setSelectedPhotoIndex(null);
+      }
+    },
+    [selectedPhotoIndex, displayedPhotos.length]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
+  const openLightboxByPhoto = (photo: ActivityPhoto) => {
+    const idx = displayedPhotos.findIndex((p) => p.id === photo.id);
+    setSelectedPhotoIndex(idx !== -1 ? idx : 0);
+  };
+
+  const handlePrevPhoto = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedPhotoIndex !== null) {
+      setSelectedPhotoIndex(
+        (selectedPhotoIndex - 1 + displayedPhotos.length) % displayedPhotos.length
+      );
+    }
+  };
+
+  const handleNextPhoto = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedPhotoIndex !== null) {
+      setSelectedPhotoIndex((selectedPhotoIndex + 1) % displayedPhotos.length);
+    }
+  };
+
+  const filteredTimeline = timeline.filter((item) => {
+    if (activeTimelineTab === "all") return true;
+    return item.type === activeTimelineTab;
   });
+
+  const selectedPhoto =
+    selectedPhotoIndex !== null && displayedPhotos[selectedPhotoIndex]
+      ? displayedPhotos[selectedPhotoIndex]
+      : null;
 
   return (
     <section id="experience" className="section experience-section" style={{ position: "relative" }}>
@@ -140,65 +354,139 @@ export default function Experience() {
             <span className="section-label">Pengalaman & Rekam Jejak</span>
             <h2 className="section-title">Perjalanan & Aktivitas Profesional</h2>
             <p className="section-subtitle">
-              Koleksi dokumentasi visual dan rekam jejak akademis, pengalaman industri, kepemimpinan organisasi, serta pencapaian sertifikasi kompetensi.
+              Koleksi dokumentasi visual kegiatan nyata dan rekam jejak akademis, magang industri teknologi, kepanitiaan, serta pengabdian masyarakat.
             </p>
           </div>
         </AnimatedSection>
 
-        {/* 6-Photo Interlocking Mosaic Showcase (Exact Reference Layout) */}
+        {/* Authentic Activity Photo Mosaic Showcase */}
         <AnimatedSection delay={0.1}>
           <div className="mosaic-showcase-wrapper">
             <div className="mosaic-header-sub">
               <span className="mosaic-tag-pill">
                 <Camera size={13} />
-                <span>MOMENTS & MILESTONES</span>
+                <span>DOKUMENTASI FOTO KEGIATAN</span>
               </span>
               <p className="mosaic-hint-text">
-                Koleksi foto kegiatan, penganugerahan, dan perjalanan akademis. Klik foto untuk memperbesar.
+                Foto-foto asli kegiatan kepanitiaan kampus, magang industri di software house, penyaluran bantuan pangan, dan kegiatan relawan. Klik untuk memperbesar.
               </p>
             </div>
 
-            {/* 3-Column Clean Interlocking Grid */}
-            <div className="mosaic-columns-grid">
-              {mosaicColumns.map((column, colIdx) => (
-                <div key={colIdx} className="mosaic-column">
-                  {column.map((photo) => (
-                    <div
-                      key={photo.id}
-                      className={`mosaic-photo-card ${photo.aspect}`}
-                      onClick={() => setSelectedPhoto(photo)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => e.key === "Enter" && setSelectedPhoto(photo)}
-                    >
-                      <img
-                        src={photo.src}
-                        alt={photo.alt}
-                        className="mosaic-card-img"
-                        style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
-                        loading="lazy"
-                      />
-                      <div className="mosaic-card-overlay">
-                        <span className="mosaic-card-tag">{photo.tag}</span>
-                        <span className="mosaic-card-caption">{photo.caption}</span>
-                        <Maximize2 size={16} className="mosaic-zoom-icon" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+            {/* Activity Category Filter Bar */}
+            <div className="activity-filter-bar">
+              {activityCategories.map((cat) => (
+                <button
+                  key={cat.key}
+                  className={`activity-filter-btn ${activeActivityCat === cat.key ? "active" : ""}`}
+                  onClick={() => {
+                    setActiveActivityCat(cat.key);
+                    setIsExpanded(false);
+                  }}
+                >
+                  <span>{cat.label}</span>
+                  <span style={{ opacity: 0.75, fontSize: "0.72rem" }}>({cat.count})</span>
+                </button>
               ))}
             </div>
+
+            {/* Layout 1: Default 6-Photo Clean Interlocking Mosaic (When in "all" & not expanded) */}
+            {activeActivityCat === "all" && !isExpanded ? (
+              <div className="mosaic-columns-grid">
+                {featuredMosaicColumns.map((column, colIdx) => (
+                  <div key={colIdx} className="mosaic-column">
+                    {column.map((photo) => (
+                      <div
+                        key={photo.id}
+                        className={`mosaic-photo-card ${photo.aspect}`}
+                        onClick={() => openLightboxByPhoto(photo)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === "Enter" && openLightboxByPhoto(photo)}
+                      >
+                        <img
+                          src={photo.src}
+                          alt={photo.alt}
+                          className="mosaic-card-img"
+                          style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
+                          loading="lazy"
+                        />
+                        <div className="mosaic-card-overlay">
+                          <span className="mosaic-card-tag">{photo.tag}</span>
+                          <span className="mosaic-card-caption">{photo.caption}</span>
+                          <Maximize2 size={16} className="mosaic-zoom-icon" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              /* Layout 2: Masonry Grid of Filtered or All Activity Photos */
+              <motion.div
+                className="all-activity-grid"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {displayedPhotos.map((photo) => (
+                  <div
+                    key={photo.id}
+                    className={`mosaic-photo-card ${photo.aspect}`}
+                    onClick={() => openLightboxByPhoto(photo)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && openLightboxByPhoto(photo)}
+                  >
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      className="mosaic-card-img"
+                      style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
+                      loading="lazy"
+                    />
+                    <div className="mosaic-card-overlay">
+                      <span className="mosaic-card-tag">{photo.tag}</span>
+                      <span className="mosaic-card-caption">{photo.caption}</span>
+                      <Maximize2 size={16} className="mosaic-zoom-icon" />
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+
+            {/* Toggle Button to Expand / Collapse All Photos in "all" tab */}
+            {activeActivityCat === "all" && (
+              <div className="mosaic-expand-wrap">
+                <button
+                  className="mosaic-expand-toggle-btn"
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  aria-label="Lihat semua foto kegiatan"
+                >
+                  {isExpanded ? (
+                    <>
+                      <ChevronUp size={16} />
+                      <span>Tampilkan 6 Foto Utama</span>
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown size={16} />
+                      <span>Lihat Semua Foto Kegiatan ({activityPhotos.length} Foto)</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
           </div>
         </AnimatedSection>
 
-        {/* Filter Tabs */}
+        {/* Timeline Filter Tabs */}
         <AnimatedSection delay={0.15}>
           <div className="experience-filter-bar">
-            {filterTabs.map((tab) => (
+            {timelineTabs.map((tab) => (
               <button
                 key={tab.key}
-                className={`experience-filter-btn ${activeTab === tab.key ? "active" : ""}`}
-                onClick={() => setActiveTab(tab.key)}
+                className={`experience-filter-btn ${activeTimelineTab === tab.key ? "active" : ""}`}
+                onClick={() => setActiveTimelineTab(tab.key)}
               >
                 {tab.label}
               </button>
@@ -209,7 +497,7 @@ export default function Experience() {
         {/* Experience Cards Grid */}
         <div className="experience-cards-grid">
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, index) => {
+            {filteredTimeline.map((item, index) => {
               const badge = typeBadgeConfig[item.type] || typeBadgeConfig.education;
               return (
                 <motion.div
@@ -265,7 +553,7 @@ export default function Experience() {
                       <div className="experience-highlights-block">
                         <span className="experience-highlights-heading">
                           <Sparkles size={13} />
-                          Poin Pencapaian:
+                          Poin Pencapaian & Aktivitas:
                         </span>
                         <ul className="experience-highlights-list">
                           {item.highlights.map((point, hIdx) => (
@@ -296,12 +584,12 @@ export default function Experience() {
         </div>
       </div>
 
-      {/* Lightbox Modal for Photo Preview */}
+      {/* Lightbox Modal for Photo Preview with Prev / Next Navigation */}
       <AnimatePresence>
         {selectedPhoto && (
           <div
             className="photo-lightbox-overlay"
-            onClick={() => setSelectedPhoto(null)}
+            onClick={() => setSelectedPhotoIndex(null)}
             role="dialog"
             aria-modal="true"
           >
@@ -315,11 +603,31 @@ export default function Experience() {
             >
               <button
                 className="photo-lightbox-close"
-                onClick={() => setSelectedPhoto(null)}
+                onClick={() => setSelectedPhotoIndex(null)}
                 aria-label="Tutup foto"
               >
                 <X size={20} />
               </button>
+
+              {/* Navigation Arrows */}
+              {displayedPhotos.length > 1 && (
+                <>
+                  <button
+                    className="photo-lightbox-nav-btn photo-lightbox-prev"
+                    onClick={handlePrevPhoto}
+                    aria-label="Foto sebelumnya"
+                  >
+                    <ChevronLeft size={22} />
+                  </button>
+                  <button
+                    className="photo-lightbox-nav-btn photo-lightbox-next"
+                    onClick={handleNextPhoto}
+                    aria-label="Foto selanjutnya"
+                  >
+                    <ChevronRight size={22} />
+                  </button>
+                </>
+              )}
 
               <div className="photo-lightbox-media">
                 <img
@@ -330,9 +638,23 @@ export default function Experience() {
               </div>
 
               <div className="photo-lightbox-caption-bar">
-                <span className="photo-lightbox-tag">{selectedPhoto.tag}</span>
+                <div className="photo-lightbox-tag-row">
+                  <span className="photo-lightbox-tag">{selectedPhoto.tag}</span>
+                  {selectedPhoto.location && (
+                    <span className="photo-lightbox-location">
+                      <MapPin size={12} />
+                      {selectedPhoto.location}
+                    </span>
+                  )}
+                </div>
                 <h4 className="photo-lightbox-caption">{selectedPhoto.caption}</h4>
-                <p className="photo-lightbox-alt">{selectedPhoto.alt}</p>
+                <p className="photo-lightbox-alt">{selectedPhoto.description || selectedPhoto.alt}</p>
+
+                {displayedPhotos.length > 1 && selectedPhotoIndex !== null && (
+                  <span className="photo-lightbox-counter">
+                    {selectedPhotoIndex + 1} / {displayedPhotos.length}
+                  </span>
+                )}
               </div>
             </motion.div>
           </div>
