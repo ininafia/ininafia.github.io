@@ -2091,7 +2091,7 @@ ul, ol {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 28px;
-  padding: 36px 32px 42px;
+  padding: 36px 28px 55px;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
   position: relative;
   overflow: hidden;
@@ -2127,40 +2127,54 @@ ul, ol {
   line-height: 1.6;
 }
 
-/* Dense Photo Mosaic Collage Grid */
+/* Aesthetic Scattered Photo Collage - Unaligned Organic Layout */
 .collage-cluster-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
+  gap: 16px 12px;
   align-items: center;
-  perspective: 1000px;
+  perspective: 1200px;
+  padding: 25px 6px 35px;
 }
 
 .collage-item {
   position: relative;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   border: 1.5px solid var(--border);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
   cursor: pointer;
-  transform: rotate(var(--rotation, 0deg));
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+  z-index: var(--z-index, 1);
+  transform: translate(var(--offset-x, 0px), var(--offset-y, 0px)) rotate(var(--rotation, 0deg));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease, z-index 0.1s ease;
   background: #0c0d0e;
 }
 
 .collage-item:hover {
-  transform: translateY(-6px) scale(1.08) rotate(0deg) !important;
-  z-index: 20;
+  transform: translate(var(--offset-x, 0px), calc(var(--offset-y, 0px) - 10px)) scale(1.12) rotate(0deg) !important;
+  z-index: 50 !important;
   border-color: var(--accent);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(52, 211, 153, 0.25);
+}
+
+.collage-item.portrait-tall {
+  aspect-ratio: 3 / 4.4;
 }
 
 .collage-item.portrait {
-  aspect-ratio: 3/4;
+  aspect-ratio: 4 / 5;
 }
 
 .collage-item.landscape {
-  aspect-ratio: 4/3;
+  aspect-ratio: 4 / 3;
+}
+
+.collage-item.landscape-wide {
+  aspect-ratio: 16 / 10;
+}
+
+.collage-item.landscape-compact {
+  aspect-ratio: 5 / 4;
 }
 
 .collage-item-img {
@@ -2322,28 +2336,44 @@ ul, ol {
 @media (max-width: 1100px) {
   .collage-cluster-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    gap: 16px 12px;
+    padding: 20px 6px 30px;
+  }
+  .collage-item {
+    transform: translate(calc(var(--offset-x, 0px) * 0.8), calc(var(--offset-y, 0px) * 0.75)) rotate(var(--rotation, 0deg));
+  }
+  .collage-item:hover {
+    transform: translate(calc(var(--offset-x, 0px) * 0.8), calc(var(--offset-y, 0px) * 0.75 - 8px)) scale(1.1) rotate(0deg) !important;
   }
 }
 
 @media (max-width: 768px) {
   .collage-cluster-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 14px 10px;
+    padding: 16px 4px 25px;
   }
   .collage-showcase-wrapper {
-    padding: 20px 16px 24px;
+    padding: 24px 16px 35px;
+  }
+  .collage-item {
+    transform: translate(calc(var(--offset-x, 0px) * 0.55), calc(var(--offset-y, 0px) * 0.5)) rotate(var(--rotation, 0deg));
+  }
+  .collage-item:hover {
+    transform: translate(calc(var(--offset-x, 0px) * 0.55), calc(var(--offset-y, 0px) * 0.5 - 6px)) scale(1.08) rotate(0deg) !important;
   }
 }
 
 @media (max-width: 480px) {
   .collage-cluster-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
+    gap: 8px 6px;
+    padding: 10px 2px 20px;
   }
   .collage-item {
     border-radius: 8px;
     border-width: 1px;
+    transform: translate(calc(var(--offset-x, 0px) * 0.35), calc(var(--offset-y, 0px) * 0.35)) rotate(var(--rotation, 0deg));
   }
   .collage-item-overlay {
     padding: 5px;

@@ -24,6 +24,9 @@ const collagePhotos: Array<{
   tag: string;
   aspect: string;
   rotation: number;
+  offsetY: number;
+  offsetX?: number;
+  zIndex?: number;
   objectPosition?: string;
 }> = [
   {
@@ -32,8 +35,11 @@ const collagePhotos: Array<{
     alt: "Momen Kelulusan & Wisuda S1",
     caption: "Wisuda S1 Informatika",
     tag: "Graduation",
-    aspect: "portrait",
-    rotation: -2,
+    aspect: "portrait-tall",
+    rotation: -3.2,
+    offsetY: -22,
+    offsetX: -6,
+    zIndex: 2,
   },
   {
     id: "col-2",
@@ -41,8 +47,11 @@ const collagePhotos: Array<{
     alt: "Kolaborasi Tim Proyek & Workshop Teknologi",
     caption: "Kolaborasi Tim & Workshop",
     tag: "Teamwork",
-    aspect: "landscape",
-    rotation: 1.8,
+    aspect: "landscape-compact",
+    rotation: 2.8,
+    offsetY: 30,
+    offsetX: 4,
+    zIndex: 1,
   },
   {
     id: "col-3",
@@ -51,7 +60,10 @@ const collagePhotos: Array<{
     caption: "Dedikasi & Semangat Belajar",
     tag: "Milestone",
     aspect: "portrait",
-    rotation: -1.5,
+    rotation: -2.2,
+    offsetY: -18,
+    offsetX: -8,
+    zIndex: 3,
     objectPosition: "center 25%",
   },
   {
@@ -60,8 +72,11 @@ const collagePhotos: Array<{
     alt: "Platform Informasi Lobi Poliwangi - Portal Beasiswa",
     caption: "Platform Lobi Poliwangi",
     tag: "Web Portal",
-    aspect: "landscape",
-    rotation: 2,
+    aspect: "landscape-wide",
+    rotation: 3.5,
+    offsetY: 26,
+    offsetX: 6,
+    zIndex: 1,
   },
   {
     id: "col-5",
@@ -69,8 +84,11 @@ const collagePhotos: Array<{
     alt: "Dokumentasi Candid Pembelajaran",
     caption: "Eksplorasi Ide & Konsep",
     tag: "Campus Life",
-    aspect: "portrait",
-    rotation: -2.2,
+    aspect: "portrait-tall",
+    rotation: -2.8,
+    offsetY: -28,
+    offsetX: -5,
+    zIndex: 2,
     objectPosition: "center 40%",
   },
   {
@@ -80,7 +98,10 @@ const collagePhotos: Array<{
     caption: "Workspace Developer",
     tag: "Engineering",
     aspect: "landscape",
-    rotation: 1.6,
+    rotation: 2.2,
+    offsetY: 22,
+    offsetX: 7,
+    zIndex: 1,
   },
   {
     id: "col-7",
@@ -88,8 +109,11 @@ const collagePhotos: Array<{
     alt: "Suasana Belajar & Lab Komputer",
     caption: "Studi Rekayasa Web",
     tag: "Academics",
-    aspect: "landscape",
-    rotation: 1.8,
+    aspect: "landscape-wide",
+    rotation: 2.5,
+    offsetY: 24,
+    offsetX: 5,
+    zIndex: 1,
   },
   {
     id: "col-8",
@@ -97,8 +121,11 @@ const collagePhotos: Array<{
     alt: "Dokumentasi Kegiatan & Diskusi Kampus",
     caption: "Diskusi & Riset Akademis",
     tag: "Discussion",
-    aspect: "portrait",
-    rotation: -2,
+    aspect: "portrait-tall",
+    rotation: -3.8,
+    offsetY: -26,
+    offsetX: -6,
+    zIndex: 3,
     objectPosition: "center 70%",
   },
   {
@@ -108,7 +135,10 @@ const collagePhotos: Array<{
     caption: "Sistem Penilaian Digital",
     tag: "Capstone",
     aspect: "landscape",
-    rotation: 2.2,
+    rotation: 1.8,
+    offsetY: 20,
+    offsetX: 6,
+    zIndex: 1,
   },
   {
     id: "col-10",
@@ -117,7 +147,10 @@ const collagePhotos: Array<{
     caption: "Sistem Informasi Akademik",
     tag: "Systems",
     aspect: "portrait",
-    rotation: -1.6,
+    rotation: -2.6,
+    offsetY: -20,
+    offsetX: -5,
+    zIndex: 2,
   },
   {
     id: "col-11",
@@ -125,8 +158,11 @@ const collagePhotos: Array<{
     alt: "Dashboard Monitoring Data & Analitik",
     caption: "Dashboard Analitik",
     tag: "Projects",
-    aspect: "landscape",
-    rotation: 1.5,
+    aspect: "landscape-wide",
+    rotation: 2.4,
+    offsetY: 18,
+    offsetX: 5,
+    zIndex: 1,
   },
   {
     id: "col-12",
@@ -134,8 +170,11 @@ const collagePhotos: Array<{
     alt: "Sistem Manajemen Inventaris Barang",
     caption: "Manajemen Inventaris",
     tag: "Database",
-    aspect: "portrait",
-    rotation: -2.4,
+    aspect: "portrait-tall",
+    rotation: -3.0,
+    offsetY: -22,
+    offsetX: -4,
+    zIndex: 2,
   },
 ];
 
@@ -216,7 +255,14 @@ export default function Experience() {
                 <div
                   key={photo.id}
                   className={`collage-item ${photo.aspect}`}
-                  style={{ "--rotation": `${photo.rotation}deg` } as React.CSSProperties}
+                  style={
+                    {
+                      "--rotation": `${photo.rotation}deg`,
+                      "--offset-y": `${photo.offsetY}px`,
+                      "--offset-x": `${photo.offsetX || 0}px`,
+                      "--z-index": photo.zIndex || 1,
+                    } as React.CSSProperties
+                  }
                   onClick={() => setSelectedPhoto(photo)}
                   role="button"
                   tabIndex={0}
