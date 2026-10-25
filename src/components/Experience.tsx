@@ -6,8 +6,6 @@ import {
   Award,
   Calendar,
   MapPin,
-  CheckCircle2,
-  Sparkles,
   Camera,
   X,
   Maximize2,
@@ -547,24 +545,6 @@ export default function Experience() {
 
                     {/* Narrative Description */}
                     <p className="experience-desc">{item.description}</p>
-
-                    {/* Key Highlights / Achievements */}
-                    {item.highlights && item.highlights.length > 0 && (
-                      <div className="experience-highlights-block">
-                        <span className="experience-highlights-heading">
-                          <Sparkles size={13} />
-                          Poin Pencapaian & Aktivitas:
-                        </span>
-                        <ul className="experience-highlights-list">
-                          {item.highlights.map((point, hIdx) => (
-                            <li key={hIdx} className="experience-highlight-item">
-                              <CheckCircle2 size={14} className="highlight-check-icon" />
-                              <span>{point}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
 
                     {/* Skills / Tech Used Tags */}
                     {item.skills && item.skills.length > 0 && (
