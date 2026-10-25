@@ -1,10 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import {
-  GraduationCap,
-  Briefcase,
-  Users,
-  Award,
-  Calendar,
   MapPin,
   Camera,
   X,
@@ -14,7 +9,6 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
-import { timeline } from "../data/portfolio";
 
 export type ActivityPhoto = {
   id: string;
@@ -246,41 +240,9 @@ const activityCategories = [
   },
 ];
 
-const timelineTabs = [
-  { key: "all", label: "Semua" },
-  { key: "experience", label: "Pengalaman Kerja" },
-  { key: "education", label: "Pendidikan" },
-  { key: "organization", label: "Organisasi" },
-  { key: "certification", label: "Sertifikasi & Award" },
-];
-
-const typeBadgeConfig: Record<string, { label: string; icon: React.ReactNode; color: string }> = {
-  education: {
-    label: "Pendidikan",
-    icon: <GraduationCap size={14} />,
-    color: "#60a5fa",
-  },
-  experience: {
-    label: "Pengalaman Kerja",
-    icon: <Briefcase size={14} />,
-    color: "#34d399",
-  },
-  organization: {
-    label: "Organisasi",
-    icon: <Users size={14} />,
-    color: "#fbbf24",
-  },
-  certification: {
-    label: "Sertifikasi & Award",
-    icon: <Award size={14} />,
-    color: "#a78bfa",
-  },
-};
-
 export default function Experience() {
   const [activeActivityCat, setActiveActivityCat] = useState("all");
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
-  const [activeTimelineTab, setActiveTimelineTab] = useState("all");
 
   // Determine which photos are active based on the category filter
   const displayedPhotos =
@@ -334,11 +296,6 @@ export default function Experience() {
       setSelectedPhotoIndex((selectedPhotoIndex + 1) % displayedPhotos.length);
     }
   };
-
-  const filteredTimeline = timeline.filter((item) => {
-    if (activeTimelineTab === "all") return true;
-    return item.type === activeTimelineTab;
-  });
 
   const selectedPhoto =
     selectedPhotoIndex !== null && displayedPhotos[selectedPhotoIndex]
@@ -477,91 +434,6 @@ export default function Experience() {
           </div>
         </AnimatedSection>
 
-        {/* Timeline Filter Tabs */}
-        <AnimatedSection delay={0.15}>
-          <div className="experience-filter-bar">
-            {timelineTabs.map((tab) => (
-              <button
-                key={tab.key}
-                className={`experience-filter-btn ${activeTimelineTab === tab.key ? "active" : ""}`}
-                onClick={() => setActiveTimelineTab(tab.key)}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </AnimatedSection>
-
-        {/* Experience Cards Grid */}
-        <div className="experience-cards-grid">
-          <AnimatePresence mode="popLayout">
-            {filteredTimeline.map((item, index) => {
-              const badge = typeBadgeConfig[item.type] || typeBadgeConfig.education;
-              return (
-                <motion.div
-                  key={item.id}
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35, delay: index * 0.08 }}
-                  className="experience-card"
-                >
-                  {/* Photo Showcase with Badge Overlay */}
-                  <div className="experience-card-media">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="experience-media-img"
-                      loading="lazy"
-                    />
-                    <div className="experience-badge-overlay">
-                      <span className="experience-type-pill" style={{ color: badge.color }}>
-                        {badge.icon}
-                        <span>{badge.label}</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Card Content */}
-                  <div className="experience-card-body">
-                    {/* Meta Info (Period & Location) */}
-                    <div className="experience-meta-row">
-                      <span className="experience-period">
-                        <Calendar size={13} />
-                        {item.period}
-                      </span>
-                      {item.location && (
-                        <span className="experience-location">
-                          <MapPin size={13} />
-                          {item.location}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Title & Institution */}
-                    <h3 className="experience-card-title">{item.title}</h3>
-                    <p className="experience-institution">{item.institution}</p>
-
-                    {/* Narrative Description */}
-                    <p className="experience-desc">{item.description}</p>
-
-                    {/* Skills / Tech Used Tags */}
-                    {item.skills && item.skills.length > 0 && (
-                      <div className="experience-skills-wrap">
-                        {item.skills.map((skill, sIdx) => (
-                          <span key={sIdx} className="experience-skill-chip">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </div>
       </div>
 
       {/* Lightbox Modal for Photo Preview with Prev / Next Navigation */}
