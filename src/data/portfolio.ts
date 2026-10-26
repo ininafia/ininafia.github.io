@@ -109,7 +109,7 @@ export const projects: Project[] = [
   {
     id: "silat-scoring",
     title: "Sistem Digital Scoring — Pencak Silat (IPSI)",
-    tagline: "Sistem penilaian digital pertandingan bela diri real-time untuk kompetisi yang adil dan transparan",
+    tagline: "Digitalisasi penilaian pertandingan pencak silat untuk kejuaraan yang lebih adil dan transparan",
     description:
       "Aplikasi web penilaian pertandingan pencak silat berbasis real-time yang dirancang khusus sesuai regulasi resmi Ikatan Pencak Silat Indonesia (IPSI). Sistem ini menggantikan penilaian manual konvensional dengan antarmuka digital yang memungkinkan dewan juri memasukkan skor secara simultan, kalkulasi nilai otomatis, serta penayangan papan skor langsung (live score board) tanpa jeda.",
     thumbnail: "/project-scoring.jpg",
