@@ -5,6 +5,7 @@
 export interface Project {
   id: string;
   title: string;
+  category: string;
   tagline: string;
   description: string;
   thumbnail: string;
@@ -109,9 +110,10 @@ export const projects: Project[] = [
   {
     id: "silat-scoring",
     title: "Sistem Digital Scoring — Pencak Silat (IPSI)",
+    category: "Project Tugas Akhir Kuliah",
     tagline: "Digitalisasi penilaian pertandingan pencak silat untuk kejuaraan yang lebih adil dan transparan",
     description:
-      "Aplikasi web penilaian pertandingan pencak silat berbasis real-time yang dirancang khusus sesuai regulasi resmi Ikatan Pencak Silat Indonesia (IPSI). Sistem ini menggantikan penilaian manual konvensional dengan antarmuka digital yang memungkinkan dewan juri memasukkan skor secara simultan, kalkulasi nilai otomatis, serta penayangan papan skor langsung (live score board) tanpa jeda.",
+      "Aplikasi web penilaian pertandingan pencak silat berbasis real-time yang dirancang khusus sesuai regulasi resmi Ikatan Pencak Silat Indonesia (IPSI). Sistem ini menggantikan penilaian manual konvensional dengan antarmuka digital yang memungkinkan dewan juri memasukkan skor secara bersamaan, kalkulasi nilai otomatis, serta penayangan papan skor langsung (live score board) tanpa jeda.",
     thumbnail: "/project-scoring.jpg",
     technologies: ["PHP", "Laravel", "MySQL", "JavaScript", "Bootstrap", "REST API", "AJAX"],
     features: [
@@ -134,10 +136,11 @@ export const projects: Project[] = [
   },
   {
     id: "indo-gopermit",
-    title: "Indo GoPermit — Portal Perizinan Bisnis Terpadu",
+    title: "Indo GoPermit — platform Layanan Perizinan",
+    category: "Project Magang",
     tagline: "Platform terintegrasi pengurusan berbagai jenis perizinan bisnis secara cepat dan transparan",
     description:
-      "Platform layanan perizinan usaha digital terintegrasi yang dikembangkan untuk menyederhanakan alur birokrasi perizinan bisnis. Memungkinkan pelaku usaha mengajukan izin, mengunggah berkas legalitas, dan memantau status validasi dinas secara real-time hingga penerbitan sertifikat izin resmi.",
+      "Platform layanan perizinan LKP berbasis digital yang dikembangkan untuk menyederhanakan proses pengajuan izin secara online. Melalui IndoGoPermit, pemohon dapat mengajukan perizinan, mengunggah dokumen persyaratan, memantau status verifikasi secara real-time, serta menerima notifikasi perkembangan perizinan untuk mewujudkan proses yang lebih cepat, efisien, dan transparan.",
     thumbnail: "/project-lkp.png",
     technologies: ["PHP", "Laravel", "MySQL", "REST API", "Bootstrap", "JavaScript", "Git"],
     features: [
@@ -160,10 +163,11 @@ export const projects: Project[] = [
   },
   {
     id: "lobi-poliwangi",
-    title: "Lobi Poliwangi — Platform Beasiswa & Lomba Mahasiswa",
+    title: "Lobi Poliwangi — Platform Informasi Lomba, Beasiswa & Prestasi Mahasiswa",
+    category: "Project Based Learning",
     tagline: "Pusat informasi terpadu ribuan beasiswa dan ajang kompetisi prestasi mahasiswa",
     description:
-      "Platform portal informasi komprehensif yang menghimpun lebih dari 2.000 data beasiswa dalam & luar negeri serta kompetisi kemahasiswaan dari 50+ instansi terpercaya. Dirancang untuk membantu mahasiswa Politeknik Negeri Banyuwangi dan pelajar umum menemukan peluang pendanaan studi dan kompetisi prestasi dengan mudah.",
+      "Platform informasi berbasis web yang dikembangkan untuk memudahkan mahasiswa Politeknik Negeri Banyuwangi dalam mengakses informasi perlombaan, beasiswa, serta prestasi mahasiswa di bidang akademik maupun nonakademik. Dilengkapi penyajian informasi yang lengkap dan terkini untuk mendukung pengembangan potensi mahasiswa sekaligus menjadi media branding dan publikasi prestasi Politeknik Negeri Banyuwangi.",
     thumbnail: "/project-lobi.png",
     technologies: ["PHP", "Laravel", "MySQL", "JavaScript", "Bootstrap", "REST API"],
     features: [
@@ -187,9 +191,10 @@ export const projects: Project[] = [
   {
     id: "love-and-learn",
     title: "Love & Learn — Layanan Konseling & Edukasi Keluarga",
+    category: "Project Based Learning",
     tagline: "Platform bimbingan pranikah, konseling keluarga, dan edukasi kesehatan mental terpercaya",
     description:
-      "Aplikasi web layanan kesehatan mental dan konseling keluarga yang memfasilitasi pendampingan pranikah, keharmonisan rumah tangga, parenting anak, dan konsultasi psikologi. Menyediakan sistem reservasi sesi konsultasi online/offline bersama konselor profesional terverifikasi, asesmen kebutuhan awal klien, serta perpustakaan artikel edukasi keluarga.",
+      "Platform edukasi pernikahan berbasis web yang dikembangkan untuk membantu calon pengantin mempersiapkan kehidupan berumah tangga melalui penyediaan materi edukasi pernikahan. Dilengkapi fitur konseling bagi pasangan suami istri serta pendataan peserta konseling oleh pihak KB Kecamatan Muncar untuk mendukung layanan konsultasi yang lebih terstruktur dan mudah diakses.",
     thumbnail: "/project-love&learn.png",
     technologies: ["PHP", "Laravel", "MySQL", "JavaScript", "Bootstrap", "CSS3"],
     features: [
@@ -213,9 +218,10 @@ export const projects: Project[] = [
   {
     id: "smartkoding-academy",
     title: "SmartKoding Academy — E-Learning & Bootcamp Pemrograman",
+    category: "Project Magang",
     tagline: "Platform kursus koding interaktif dan kelas industri terstruktur #2025BisaNgoding",
     description:
-      "Platform pembelajaran pemrograman web interaktif yang dikembangkan untuk membantu pemula dan pelajar menguasai skill coding web (HTML, CSS, PHP, JavaScript, MySQL) dari dasar hingga siap terjun ke industri. Dilengkapi silabus terstruktur, pelacak progres belajar siswa, kuis evaluasi, serta penerbitan sertifikat digital otomatis.",
+      "Platform pembelajaran pemrograman web interaktif yang dikembangkan untuk mendukung kegiatan belajar siswa di kelas industri Rekayasa Perangkat Lunak (RPL) SMK Negeri 8 Jember agar menguasai skill coding web (HTML, CSS, PHP, JavaScript, MySQL) dari dasar hingga siap terjun ke industri. Dilengkapi fitur modul pembelajaran, video rekaman pertemuan, pengumpulan dan revisi tugas, pemantauan nilai, serta informasi pembayaran untuk menciptakan pengalaman belajar yang terstruktur, interaktif, dan mudah diakses.",
     thumbnail: "/project-smartkoding.png",
     technologies: ["PHP", "MySQL", "HTML5", "CSS3", "JavaScript", "Bootstrap"],
     features: [

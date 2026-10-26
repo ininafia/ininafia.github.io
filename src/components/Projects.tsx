@@ -48,7 +48,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
         </button>
 
         <div className="modal-header">
-          <div className="project-tag">Proyek Unggulan</div>
+          <div className="project-tag">{project.category}</div>
           <h2>{project.title}</h2>
           <p className="tagline">{project.tagline}</p>
         </div>
@@ -181,6 +181,9 @@ function AllProjectsModal({
                 <img src={p.thumbnail} alt={p.title} />
               </div>
               <div className="all-project-info">
+                {p.category && (
+                  <span className="all-project-category-badge">{p.category}</span>
+                )}
                 <h3>{p.title}</h3>
                 <p>{p.tagline}</p>
                 <div className="tech-badge-list">
@@ -426,6 +429,13 @@ export default function Projects() {
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.3 }}
             >
+              {/* Project Category Badge */}
+              {activeProject.category && (
+                <span className="gallery-project-category-badge">
+                  {activeProject.category}
+                </span>
+              )}
+
               {/* Project Title */}
               <h3 className="gallery-detail-title">{activeProject.title}</h3>
 
