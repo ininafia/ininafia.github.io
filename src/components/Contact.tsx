@@ -108,7 +108,7 @@ export default function Contact() {
                   <div>
                     <div style={{ fontWeight: 600, fontSize: "0.85rem" }}>GitHub</div>
                     <div style={{ color: "var(--text-secondary)", fontSize: "0.85rem" }}>
-                      @nafiatulmuawanah
+                      @ininafia
                     </div>
                   </div>
                   <ArrowUpRight size={16} style={{ marginLeft: "auto", color: "var(--text-tertiary)" }} />

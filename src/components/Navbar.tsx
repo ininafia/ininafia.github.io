@@ -20,9 +20,18 @@ export default function Navbar() {
 
   const handleNavClick = useCallback((id: string) => {
     setMobileOpen(false);
+    if (id === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      const navOffset = 75;
+      const elementTop = el.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: Math.max(0, elementTop - navOffset),
+        behavior: "smooth",
+      });
     }
   }, []);
 

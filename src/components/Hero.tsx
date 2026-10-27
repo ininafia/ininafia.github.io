@@ -86,7 +86,12 @@ export default function Hero() {
               className="btn btn-primary"
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+                const el = document.getElementById("projects");
+                if (el) {
+                  const navOffset = 75;
+                  const elementTop = el.getBoundingClientRect().top + window.pageYOffset;
+                  window.scrollTo({ top: Math.max(0, elementTop - navOffset), behavior: "smooth" });
+                }
               }}
             >
               Lihat Portofolio
@@ -132,10 +137,17 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+          onClick={() => {
+            const el = document.getElementById("projects");
+            if (el) {
+              const navOffset = 75;
+              const elementTop = el.getBoundingClientRect().top + window.pageYOffset;
+              window.scrollTo({ top: Math.max(0, elementTop - navOffset), behavior: "smooth" });
+            }
+          }}
           style={{ cursor: "pointer" }}
           role="button"
-          aria-label="Scroll ke bagian Tentang"
+          aria-label="Scroll ke Galeri Proyek"
         >
           <span>Scroll</span>
           <div className="scroll-indicator-line" />
