@@ -8,8 +8,8 @@ const navItems = [
   { id: "projects", label: "WORK" },
   { id: "skills", label: "WHAT I CAN DO" },
   { id: "about", label: "ABOUT" },
+  { id: "education", label: "EDUCATION" },
   { id: "experience", label: "EXPERIENCE" },
-  { id: "trainings", label: "TRAININGS" },
 ];
 
 export default function Navbar() {

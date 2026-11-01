@@ -35,19 +35,22 @@ const capabilityCards: CapabilityCardData[] = [
     number: "01",
     categoryLines: ["IT, WEB", "DEVELOPMENT &", "QA"],
     description:
-      "Building and testing functional digital systems, from database-driven web applications to RFID and QR-based solutions, with a focus on reliability, usability, and practical problem-solving.",
+      "Membangun dan menguji sistem digital yang fungsional dan andal, mulai dari aplikasi web berbasis Laravel dan MySQL hingga pengujian sistem komprehensif (test plan, Katalon, JMeter, & UAT) untuk memastikan performa, akurasi data, serta kualitas perangkat lunak.",
     tags: [
       "Web Development",
-      "System Testing",
-      "Bug Identification",
-      "System Analysis",
-      "Database Management",
-      "MySQL",
+      "Laravel",
       "PHP",
-      "HTML",
-      "CSS",
+      "MySQL",
       "JavaScript",
-      "RFID & QR Integration",
+      "REST API",
+      "Tailwind CSS",
+      "Bootstrap",
+      "System Testing & QA",
+      "Test Case & Scenario",
+      "Katalon Studio",
+      "Apache JMeter",
+      "UAT Testing",
+      "Bug Tracking",
     ],
     icon: (
       <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,44 +67,38 @@ const capabilityCards: CapabilityCardData[] = [
   },
   {
     number: "02",
-    categoryLines: ["VA & DIGITAL", "OPERATIONS"],
+    categoryLines: ["DATA, ADMIN &", "OPERATIONS"],
     description:
-      "Supporting teams with organized data, documentation, research, and digital workflows while helping keep day-to-day operations accurate and efficient.",
+      "Mendukung kelancaran operasional melalui verifikasi dan validasi data terstruktur, rekonsiliasi dokumen berita acara (BAST), pengelolaan data digital yang akurat, serta koordinasi administratif dan dokumentasi tim.",
     tags: [
-      "Data Entry",
+      "Data Verification",
       "Data Validation",
+      "BAST Reconciliation",
       "Document Management",
-      "Online Research",
       "Administrative Support",
+      "Data Entry",
       "Google Workspace",
-      "Social Media Management",
-      "Content Optimization",
+      "Microsoft Office",
+      "Field Coordination",
+      "Digital Documentation",
+      "Reporting & Archiving",
     ],
     icon: (
       <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {/* Speech Bubble */}
-        <path d="M31 7H39C40.6 7 42 8.4 42 10V14C42 15.6 40.6 17 39 17H36L33 19.5V17H31C29.4 17 28 15.6 28 14V10C28 8.4 29.4 7 31 7Z" fill="#ffffff" stroke="#1f2328" strokeWidth="2" strokeLinejoin="round" />
-        <line x1="32" y1="11" x2="38" y2="11" stroke="#1f2328" strokeWidth="1.8" strokeLinecap="round" />
-        <line x1="32" y1="13.5" x2="36" y2="13.5" stroke="#1f2328" strokeWidth="1.8" strokeLinecap="round" />
-        
-        {/* Headset arc */}
-        <path d="M15 21C15 16 19 12 24 12C29 12 33 16 33 21" stroke="#1f2328" strokeWidth="2.2" strokeLinecap="round" />
-        {/* Ear pads */}
-        <rect x="13.5" y="19" width="3" height="6" rx="1.5" fill="#1f2328" />
-        <rect x="31.5" y="19" width="3" height="6" rx="1.5" fill="#1f2328" />
-        {/* Mic */}
-        <path d="M32 23C32 26 29 27.5 26 27.5" stroke="#1f2328" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="25" cy="27.5" r="1.2" fill="#1f2328" />
-
-        {/* Person Head */}
-        <circle cx="24" cy="20.5" r="5" fill="#ffffff" stroke="#1f2328" strokeWidth="2.2" />
-        
-        {/* Torso */}
-        <path d="M16 34C16 29.5 19.5 27 24 27C28.5 27 32 29.5 32 34" fill="#ffffff" stroke="#1f2328" strokeWidth="2.2" strokeLinecap="round" />
-        
-        {/* Laptop */}
-        <rect x="18" y="31.5" width="12" height="8" rx="1.5" fill="#ffffff" stroke="#1f2328" strokeWidth="2" />
-        <path d="M13 41.5H35" stroke="#1f2328" strokeWidth="2.4" strokeLinecap="round" />
+        {/* Document / Clipboard Board */}
+        <rect x="8" y="8" width="32" height="34" rx="6" fill="#ffffff" stroke="#1f2328" strokeWidth="2.5" />
+        {/* Top Clip */}
+        <path d="M18 6C18 4.9 18.9 4 20 4H28C29.1 4 30 4.9 30 6V9H18V6Z" fill="#1f2328" stroke="#1f2328" strokeWidth="1.5" />
+        <circle cx="24" cy="6.5" r="1.5" fill="#ffffff" />
+        {/* Row 1 - verified checkmark */}
+        <path d="M14 17L17 20L23 14" stroke="#1f2328" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+        <line x1="27" y1="17" x2="35" y2="17" stroke="#1f2328" strokeWidth="2.2" strokeLinecap="round" />
+        {/* Row 2 - verified checkmark */}
+        <path d="M14 26L17 29L23 23" stroke="#1f2328" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+        <line x1="27" y1="26" x2="35" y2="26" stroke="#1f2328" strokeWidth="2.2" strokeLinecap="round" />
+        {/* Row 3 - data bar / spreadsheet row */}
+        <line x1="14" y1="35" x2="22" y2="35" stroke="#1f2328" strokeWidth="2.2" strokeLinecap="round" />
+        <line x1="27" y1="35" x2="35" y2="35" stroke="#1f2328" strokeWidth="2.2" strokeLinecap="round" />
       </svg>
     ),
   },

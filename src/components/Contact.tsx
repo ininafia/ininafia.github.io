@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
-import { Mail, Send, ArrowUpRight } from "lucide-react";
-import { Github, Linkedin } from "./Icons";
+import { Mail, ArrowUpRight } from "lucide-react";
+import { Github, Linkedin, WhatsApp } from "./Icons";
 import AnimatedSection from "./AnimatedSection";
 import { personalInfo } from "../data/portfolio";
 
@@ -14,45 +14,39 @@ export default function Contact() {
   const validate = () => {
     const errs: Record<string, string> = {};
     if (!formData.name.trim()) errs.name = "Nama wajib diisi";
-    if (!formData.email.trim()) errs.email = "Email wajib diisi";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+    if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       errs.email = "Masukkan format email yang valid";
+    }
     if (!formData.message.trim()) errs.message = "Pesan wajib diisi";
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setStatus("sending");
 
-    try {
-      // Using Formspree as a real form backend
-      // Replace 'xpwzjkdq' with your own Formspree form ID
-      const res = await fetch("https://formspree.io/f/xpwzjkdq", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        }),
-      });
+    const messageLines = [
+      `Halo Nafiatul Muawanah, perkenalkan saya *${formData.name.trim()}*${
+        formData.email.trim() ? ` (${formData.email.trim()})` : ""
+      }.`,
+      "",
+      `*Pesan:*`,
+      formData.message.trim(),
+    ];
 
-      if (res.ok) {
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setStatus("idle"), 5000);
-      } else {
-        setStatus("error");
-        setTimeout(() => setStatus("idle"), 4000);
-      }
-    } catch {
-      setStatus("error");
-      setTimeout(() => setStatus("idle"), 4000);
-    }
+    const waText = encodeURIComponent(messageLines.join("\n"));
+    const waUrl = `https://wa.me/${personalInfo.whatsapp}?text=${waText}`;
+
+    // Buka WhatsApp di tab / aplikasi WhatsApp
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+
+    setStatus("success");
+    setTimeout(() => {
+      setStatus("idle");
+    }, 6000);
   };
 
   return (
@@ -78,6 +72,25 @@ export default function Contact() {
               </p>
 
               <div className="contact-links">
+                <a
+                  href={personalInfo.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-link"
+                  aria-label="Chat WhatsApp"
+                >
+                  <div className="link-icon" style={{ color: "#22c55e" }}>
+                    <WhatsApp size={18} />
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 600, fontSize: "0.85rem" }}>WhatsApp</div>
+                    <div style={{ color: "var(--text-secondary)", fontSize: "0.85rem" }}>
+                      +62 859-6156-0498
+                    </div>
+                  </div>
+                  <ArrowUpRight size={16} style={{ marginLeft: "auto", color: "var(--text-tertiary)" }} />
+                </a>
+
                 <a
                   href={`mailto:${personalInfo.email}`}
                   className="contact-link"
@@ -158,7 +171,7 @@ export default function Contact() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="contact-email">Alamat Email</label>
+                <label htmlFor="contact-email">Alamat Email (Opsional)</label>
                 <input
                   id="contact-email"
                   type="email"
@@ -196,26 +209,15 @@ export default function Contact() {
                 type="submit"
                 className="btn btn-primary"
                 disabled={status === "sending"}
-                style={{ width: "100%", justifyContent: "center" }}
+                style={{ width: "100%", justifyContent: "center", gap: "8px" }}
               >
-                {status === "sending" ? (
-                  "Mengirim..."
-                ) : (
-                  <>
-                    <Send size={16} />
-                    Kirim Pesan
-                  </>
-                )}
+                <WhatsApp size={18} />
+                Kirim via WhatsApp
               </button>
 
               {status === "success" && (
                 <div className="form-status success">
-                  ✓ Pesan berhasil dikirim! Saya akan segera membalasnya.
-                </div>
-              )}
-              {status === "error" && (
-                <div className="form-status error">
-                  Terjadi kesalahan. Silakan coba hubungi saya langsung melalui email.
+                  ✓ Menghubungkan ke WhatsApp... Pesan Anda siap dikirimkan!
                 </div>
               )}
             </form>

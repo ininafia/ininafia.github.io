@@ -206,8 +206,6 @@ export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showAllModal, setShowAllModal] = useState(false);
-  const [claps, setClaps] = useState(306);
-  const [clapped, setClapped] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const total = projects.length;
@@ -232,12 +230,6 @@ export default function Projects() {
   }, [nextProject, prevProject, selectedProject, showAllModal]);
 
   const activeProject = projects[activeIndex];
-
-  const handleClap = () => {
-    setClaps((c) => c + 1);
-    setClapped(true);
-    setTimeout(() => setClapped(false), 600);
-  };
 
   return (
     <section id="projects" className="work-gallery-section" aria-label="Galeri Proyek">
@@ -264,19 +256,6 @@ export default function Projects() {
           />
         </svg>
       </div>
-
-      {/* Floating Interactive Badge on Left (matching reference: coffee / counter badge) */}
-      <motion.button
-        className={`gallery-floating-badge ${clapped ? "bouncing" : ""}`}
-        onClick={handleClap}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.92 }}
-        aria-label="Apresiasi proyek"
-        title="Klik untuk apresiasi karya!"
-      >
-        <span className="badge-icon">☕</span>
-        <span className="badge-count">{claps}</span>
-      </motion.button>
 
       <div className="container gallery-inner">
         {/* Section Header */}

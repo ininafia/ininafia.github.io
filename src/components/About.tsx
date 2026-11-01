@@ -130,10 +130,10 @@ export default function About() {
                 seperti PHP, Laravel, MySQL, dan JavaScript.
               </p>
               <p>
-                Karya saya diakui melalui pencapaian akademis dan penghargaan Capstone Project
-                Terbaik. Saya juga aktif mengeksplorasi pengembangan antarmuka modern dan integrasi
-                alur kerja digital cerdas, memberikan saya pemahaman komprehensif baik di ranah teknis
-                maupun operasional digital.
+                Melalui pengerjaan tugas akhir dan berbagai proyek perkuliahan, saya terbiasa
+                membangun aplikasi web serta melakukan pengujian sistem agar berjalan dengan baik.
+                Selain di bidang teknis, saya juga terbiasa dengan pengelolaan data, dokumentasi,
+                dan pekerjaan administratif digital yang membutuhkan ketelitian.
               </p>
 
               <div className="about-resume-cta">

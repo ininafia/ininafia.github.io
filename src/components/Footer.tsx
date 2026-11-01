@@ -1,5 +1,5 @@
 import { Mail } from "lucide-react";
-import { Github, Linkedin } from "./Icons";
+import { Github, Linkedin, WhatsApp } from "./Icons";
 import { personalInfo } from "../data/portfolio";
 
 export default function Footer() {
@@ -14,6 +14,15 @@ export default function Footer() {
         </div>
 
         <div className="footer-socials">
+          <a
+            href={personalInfo.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-icon"
+            aria-label="WhatsApp"
+          >
+            <WhatsApp size={16} />
+          </a>
           <a
             href={personalInfo.github}
             target="_blank"

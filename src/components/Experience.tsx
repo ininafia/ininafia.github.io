@@ -35,7 +35,7 @@ const activityPhotos: ActivityPhoto[] = [
     aspect: "portrait",
     location: "Poliwangi, Banyuwangi",
     description:
-      "Peliputan multimedia dan dokumentasi kegiatan resmi kampus menggunakan kamera profesional Sony Alpha telephoto.",
+      "Sebagi salah satu tim dokumentasi saat kegiatan upacara.",
   },
   {
     id: "act-2",
@@ -78,25 +78,25 @@ const activityPhotos: ActivityPhoto[] = [
     src: "/kepanitiaan1.jpg",
     alt: "Nafiatul bertugas dalam kepanitiaan wisuda Poliwangi divisi media dan dokumentasi",
     caption: "Tim Media Wisuda Poliwangi",
-    tag: "Wisuda & Media",
+    tag: "Tim Media",
     category: "kepanitiaan",
     aspect: "portrait",
     objectPosition: "center 15%",
     location: "Kampus Poliwangi",
     description:
-      "Mengemban amanah sebagai divisi media dan dokumentasi dalam upacara wisuda sarjana Politeknik Negeri Banyuwangi.",
+      "Bertugas sebagai anggota divisi media dan dokumentasi dalam pelaksanaan upacara wisuda sarjana Politeknik Negeri Banyuwangi.",
   },
   {
     id: "act-6",
     src: "/magang-jember.png",
-    alt: "Sesi mentoring dan kolaborasi coding bersama mahasiswi di Hummatech Jember",
-    caption: "Mentoring Coding Hummatech",
-    tag: "Mentoring & Coding",
+    alt: "Sesi pendampingan dan mentoring coding bersama siswi SMK Negeri 8 Jember di kelas industri Smartlogy",
+    caption: "Mentoring Coding SMKN 8 Jember",
+    tag: "Mentoring Siswa",
     category: "magang",
     aspect: "landscape",
-    location: "PT Humma Teknologi Indonesia, Jember",
+    location: "SMK Negeri 8 Jember (Smartlogy Class)",
     description:
-      "Bimbingan langsung logika pemrograman web dan implementasi modul sistem di kelas praktikum Hummatech Jember.",
+      "Mendampingi siswi jurusan Rekayasa Perangkat Lunak (RPL) SMK Negeri 8 Jember dalam belajar dasar pemrograman web dan praktik coding di kelas industri Smartlogy.",
   },
   {
     id: "act-7",
@@ -150,62 +150,49 @@ const activityPhotos: ActivityPhoto[] = [
     id: "act-11",
     src: "/kepanitiaan5.JPG",
     alt: "Seluruh kru dan panitia pelaksana di atas panggung acara malam keakraban",
-    caption: "Malam Puncak & Keakraban Panitia",
-    tag: "Pentas Seni & Kru",
+    caption: "Panitia PKKMB Politeknik Negeri Banyuwangi 2023",
+    tag: "PKKMB Poliwangi",
     category: "kepanitiaan",
     aspect: "landscape",
-    location: "Panggung Utama Kampus",
+    location: "Politeknik Negeri Banyuwangi",
     description:
-      "Momen kebersamaan kru dan seluruh divisi panitia setelah sukses menyelenggarakan pagelaran panggung malam pentas seni.",
+      "Momen kebersamaan Panitia PKKMB dan seluruh divisi panitia setelah sukses menyelenggarakan PKKMB",
   },
   {
     id: "act-12",
     src: "/magang-jember1.JPG",
-    alt: "Foto bersama tim magang almamater di depan kantor Hummatech Jember",
-    caption: "Tim Mahasiswa Magang Hummatech",
+    alt: "Foto bersama tim magang almamater di depan kantor Smartlogy Jember",
+    caption: "Tim Mahasiswa Magang Smartlogy",
     tag: "Magang Industri",
     category: "magang",
     aspect: "landscape",
-    location: "Hummatech, Jember",
+    location: "Smartlogy, Jember",
     description:
-      "Foto tim mahasiswa magang almamater bersama pembimbing industri di depan kantor PT Humma Teknologi Indonesia.",
+      "Foto tim mahasiswa magang almamater bersama pembimbing industri Smart Technology Solution",
   },
   {
     id: "act-13",
     src: "/volunteer-S2o.jpg",
-    alt: "Panitia relawan dan peserta program kepemudaan S2O di aula konvensi Banyuwangi",
-    caption: "Relawan Volunteer S2O Banyuwangi",
-    tag: "Volunteer & Sosial",
+    alt: "Sertifikat penghargaan sebagai Volunteer STIKES Science Olympiad (S2O) 2024 di STIKES Banyuwangi",
+    caption: "Volunteer STIKES Science Olympiad 2024",
+    tag: "Volunteer",
     category: "volunteer",
     aspect: "landscape",
-    location: "Aula Stikes Banyuwangi",
+    location: "STIKES Banyuwangi",
     description:
-      "Berperan aktif sebagai relawan panitia dalam seminar edukasi dan pemberdayaan generasi muda S2O di aula konvensi Banyuwangi.",
-  },
-  {
-    id: "act-14",
-    src: "/candid-1.jpeg",
-    alt: "Potret dedikasi akademis dan perjalanan studi teknik informatika",
-    caption: "Perjalanan Akademis Informatika",
-    tag: "Dedikasi Kampus",
-    category: "volunteer",
-    aspect: "portrait",
-    objectPosition: "center 25%",
-    location: "Banyuwangi",
-    description:
-      "Potret dedikasi selama menempuh studi sarjana teknik informatika dengan semangat eksplorasi dan komitmen belajar.",
+      "Berperan aktif sebagai relawan (volunteer) dalam penyelenggaraan kompetisi STIKES Science Olympiad (S2O) 2024 di Sekolah Tinggi Ilmu Kesehatan Banyuwangi.",
   },
 ];
 
-// 4-Column Asymmetric Staggered Arrangement (All 14 Activity Photos shown directly)
+// 4-Column Asymmetric Staggered Arrangement (All 13 Activity Photos shown directly)
 const staggeredMosaicColumns: ActivityPhoto[][] = [
-  // Kolom 1 (Offset 0px): Wisuda (portrait), Purwoharjo BAST (landscape), Mentoring Coding (square), Candid Kampus (portrait)
-  [activityPhotos[4], activityPhotos[6], activityPhotos[5], activityPhotos[13]],
+  // Kolom 1 (Offset 0px): Wisuda (portrait), Purwoharjo BAST (landscape), Mentoring Coding (square)
+  [activityPhotos[4], activityPhotos[6], activityPhotos[5]],
   // Kolom 2 (Offset +26px): Indo GoPermit Bali (landscape), Sony Alpha (portrait), Penyaluran Sempu (landscape)
   [activityPhotos[2], activityPhotos[0], activityPhotos[8]],
   // Kolom 3 (Offset +8px): Volunteer S2O (landscape), Workspace Bali (portrait), Penyaluran Sumberasri (portrait), Capacity Building (landscape)
   [activityPhotos[12], activityPhotos[3], activityPhotos[7], activityPhotos[9]],
-  // Kolom 4 (Offset +20px): Pantai Boom (landscape), Malam Puncak (landscape), Tim Magang Hummatech (landscape)
+  // Kolom 4 (Offset +20px): Pantai Boom (landscape), Malam Puncak (landscape), Tim Magang Smartlogy (landscape)
   [activityPhotos[1], activityPhotos[10], activityPhotos[11]],
 ];
 
@@ -352,9 +339,13 @@ export default function Experience() {
               <div className="staggered-mosaic-container">
                 {staggeredMosaicColumns.map((column, colIdx) => (
                   <div key={colIdx} className={`staggered-column col-${colIdx + 1}`}>
-                    {column.map((photo, itemIdx) => {
+                    {column.filter(Boolean).map((photo, itemIdx) => {
+                      if (!photo) return null;
                       const isTiltLeft = (colIdx + itemIdx) % 2 === 0;
-                      const cat = categoryMeta[photo.category] || { label: photo.tag, color: "#34d399" };
+                      const cat = (photo.category && categoryMeta[photo.category]) || {
+                        label: photo.tag || "",
+                        color: "#34d399",
+                      };
                       return (
                         <div
                           key={photo.id}
@@ -396,9 +387,13 @@ export default function Experience() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                {displayedPhotos.map((photo, index) => {
+                {displayedPhotos.filter(Boolean).map((photo, index) => {
+                  if (!photo) return null;
                   const isTiltLeft = index % 2 === 0;
-                  const cat = categoryMeta[photo.category] || { label: photo.tag, color: "#34d399" };
+                  const cat = (photo.category && categoryMeta[photo.category]) || {
+                    label: photo.tag || "",
+                    color: "#34d399",
+                  };
                   return (
                     <div
                       key={photo.id}
