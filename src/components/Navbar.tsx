@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
@@ -17,6 +17,23 @@ export default function Navbar() {
   const { scrolled } = useScrollPosition();
   const activeSection = useActiveSection(["home", ...navItems.map((n) => n.id)]);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Lock background scroll when mobile menu is open & listen for Escape key
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [mobileOpen]);
 
   const handleNavClick = useCallback((id: string) => {
     setMobileOpen(false);
@@ -119,43 +136,72 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu dropdown & backdrop */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            className="mobile-menu"
-            role="menu"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            <a
-              href="#home"
-              role="menuitem"
-              className={`nav-link ${activeSection === "home" ? "active" : ""}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick("home");
-              }}
+          <>
+            <motion.div
+              className="mobile-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMobileOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              className="mobile-menu-card"
+              role="menu"
+              initial={{ opacity: 0, y: -12, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.97 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             >
-              HOME
-            </a>
-            {navItems.map((item) => (
               <a
-                key={item.id}
-                href={`#${item.id}`}
+                href="#home"
                 role="menuitem"
-                className={`nav-link ${activeSection === item.id ? "active" : ""}`}
+                className={`mobile-nav-link ${activeSection === "home" ? "active" : ""}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  handleNavClick(item.id);
+                  handleNavClick("home");
                 }}
               >
-                {item.label}
+                <span>HOME</span>
+                {activeSection === "home" && <span className="mobile-nav-indicator" />}
               </a>
-            ))}
-          </motion.div>
+              {navItems.map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    role="menuitem"
+                    className={`mobile-nav-link ${isActive ? "active" : ""}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.id);
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    {isActive && <span className="mobile-nav-indicator" />}
+                  </a>
+                );
+              })}
+
+              <div className="mobile-menu-divider" />
+
+              <a
+                href="#contact"
+                className="mobile-menu-cta"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick("contact");
+                }}
+              >
+                Hire Me
+              </a>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
