@@ -569,7 +569,7 @@ ul, ol {
   flex-shrink: 0;
   gap: 36px;
   padding-right: 36px;
-  animation: marqueeWalk 28s linear infinite;
+  animation: marqueeWalk 14s linear infinite;
   will-change: transform;
 }
 
