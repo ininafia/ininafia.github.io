@@ -2302,11 +2302,49 @@ ul, ol {
 /* Filtered Adaptive Grid for Category Views */
 .activity-filtered-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 14px;
-  max-width: 860px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 6px 0 20px;
+  padding: 8px 0 24px;
+  justify-content: center;
+}
+
+/* Card sizing inside filtered view */
+.activity-filtered-grid .mosaic-photo-card.landscape {
+  height: 220px;
+}
+
+.activity-filtered-grid .mosaic-photo-card.portrait {
+  height: 320px;
+}
+
+.activity-filtered-grid .mosaic-photo-card.square {
+  height: 250px;
+}
+
+/* Single item view (e.g. Relawan & Komunitas) */
+.activity-filtered-grid.single-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.activity-filtered-grid.single-item .mosaic-photo-card {
+  width: 100%;
+  max-width: 560px;
+}
+
+.activity-filtered-grid.single-item .mosaic-photo-card.landscape {
+  height: 340px;
+  max-height: 65vh;
+}
+
+.activity-filtered-grid.single-item .mosaic-photo-card.portrait {
+  height: 440px;
+  max-height: 75vh;
 }
 
 /* Responsive Breakpoints */
@@ -2324,14 +2362,28 @@ ul, ol {
   .staggered-column.col-4 {
     padding-top: 14px;
   }
-  .mosaic-photo-card.portrait {
+  .staggered-mosaic-container .mosaic-photo-card.portrait {
     height: 180px;
   }
-  .mosaic-photo-card.landscape {
+  .staggered-mosaic-container .mosaic-photo-card.landscape {
     height: 125px;
   }
-  .mosaic-photo-card.square {
+  .staggered-mosaic-container .mosaic-photo-card.square {
     height: 140px;
+  }
+
+  .activity-filtered-grid {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 14px;
+  }
+  .activity-filtered-grid .mosaic-photo-card.landscape {
+    height: 200px;
+  }
+  .activity-filtered-grid .mosaic-photo-card.portrait {
+    height: 290px;
+  }
+  .activity-filtered-grid.single-item .mosaic-photo-card.landscape {
+    height: 280px;
   }
 }
 
@@ -2343,14 +2395,29 @@ ul, ol {
   .staggered-column {
     gap: 10px;
   }
-  .mosaic-photo-card.portrait {
+  .staggered-mosaic-container .mosaic-photo-card.portrait {
     height: 165px;
   }
-  .mosaic-photo-card.landscape {
+  .staggered-mosaic-container .mosaic-photo-card.landscape {
     height: 115px;
   }
-  .mosaic-photo-card.square {
+  .staggered-mosaic-container .mosaic-photo-card.square {
     height: 130px;
+  }
+
+  .activity-filtered-grid {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+    gap: 12px;
+  }
+  .activity-filtered-grid .mosaic-photo-card.landscape {
+    height: 190px;
+  }
+  .activity-filtered-grid .mosaic-photo-card.portrait {
+    height: 270px;
+  }
+  .activity-filtered-grid.single-item .mosaic-photo-card.landscape {
+    height: 220px;
   }
 }
 

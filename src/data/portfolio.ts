@@ -50,7 +50,7 @@ export const personalInfo = {
     "Minat utama saya berfokus pada full-stack web development, manajemen basis data, dan perancangan solusi perangkat lunak yang efisien. Saya sangat tertarik pada pengembangan sistem yang memadukan logika backend yang andal dengan antarmuka pengguna yang intuitif.",
     "Saya memiliki komitmen tinggi terhadap pembelajaran berkelanjutan dan selalu antusias menghadapi tantangan baru. Baik dalam mengeksplorasi teknologi modern, mengoptimasi kueri basis data, maupun menyempurnakan interaksi pengguna, saya selalu berupaya memberikan hasil yang terbaik.",
   ],
-  education: "Teknik Informatika",
+  education: "Bisnis & Informatika",
   email: "nafiatulmuawanah23@gmail.com",
   phone: "085961560498",
   whatsapp: "6285961560498",
@@ -245,7 +245,7 @@ export const timeline: TimelineItem[] = [
   {
     id: "edu-1",
     type: "education",
-    title: "S1 Teknik Informatika",
+    title: "Sarjana Terapan Bisnis & Informatika",
     institution: "Politeknik Negeri Banyuwangi (Poliwangi)",
     period: "2020 — 2024",
     location: "Banyuwangi, Indonesia",

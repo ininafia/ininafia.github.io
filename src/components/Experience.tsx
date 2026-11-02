@@ -173,11 +173,12 @@ const activityPhotos: ActivityPhoto[] = [
   {
     id: "act-13",
     src: "/volunteer-S2o.jpg",
-    alt: "Sertifikat penghargaan sebagai Volunteer STIKES Science Olympiad (S2O) 2024 di STIKES Banyuwangi",
+    alt: "Dokumentasi kebersamaan panitia dan Volunteer STIKES Science Olympiad (S2O) 2024 di STIKES Banyuwangi",
     caption: "Volunteer STIKES Science Olympiad 2024",
     tag: "Volunteer",
     category: "volunteer",
     aspect: "landscape",
+    objectPosition: "center 60%",
     location: "STIKES Banyuwangi",
     description:
       "Berperan aktif sebagai relawan (volunteer) dalam penyelenggaraan kompetisi STIKES Science Olympiad (S2O) 2024 di Sekolah Tinggi Ilmu Kesehatan Banyuwangi.",
@@ -382,7 +383,7 @@ export default function Experience() {
             ) : (
               /* Layout 2: Adaptive Grid for Category Filtered View */
               <motion.div
-                className="activity-filtered-grid"
+                className={`activity-filtered-grid ${displayedPhotos.length === 1 ? "single-item" : ""}`}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
