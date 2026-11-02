@@ -1087,131 +1087,7 @@ ul, ol {
   color: var(--text-tertiary);
 }
 
-/* Trait Deck (Stacked cards) */
-.about-trait-col {
-  position: relative;
-  width: 230px;
-  height: 140px;
-  flex-shrink: 0;
-}
 
-.trait-deck {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  user-select: none;
-}
-
-.trait-card-bg {
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
-}
-
-.card-back-2 {
-  transform: rotate(-7deg) translate(-6px, 2px);
-  opacity: 0.4;
-  z-index: 1;
-}
-
-.card-back-1 {
-  transform: rotate(5deg) translate(5px, -2px);
-  opacity: 0.75;
-  z-index: 2;
-}
-
-.trait-card-front {
-  position: relative;
-  z-index: 3;
-  width: 100%;
-  height: 100%;
-  border-radius: 18px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-hover);
-  padding: 16px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color var(--transition-base), box-shadow 0.35s ease;
-}
-
-.trait-deck:hover .trait-card-front {
-  transform: translateY(-5px) scale(1.02);
-  border-color: var(--accent);
-  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3);
-}
-
-.trait-deck:hover .card-back-1 {
-  transform: rotate(9deg) translate(8px, -4px);
-}
-
-.trait-deck:hover .card-back-2 {
-  transform: rotate(-11deg) translate(-10px, 4px);
-}
-
-.trait-deck:active .trait-card-front {
-  transform: translateY(-1px) scale(0.98);
-}
-
-.trait-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.trait-top-tag {
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-}
-
-.trait-sparkle-icon {
-  color: var(--accent);
-  opacity: 0.8;
-}
-
-.trait-card-body {
-  margin: 6px 0;
-}
-
-.trait-title {
-  font-size: 1.08rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.01em;
-  animation: traitFadeIn 0.25s ease-out;
-}
-
-@keyframes traitFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.trait-card-hint {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.trait-hint-text {
-  font-size: 0.64rem;
-  color: var(--text-tertiary);
-  letter-spacing: 0.02em;
-}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -1247,12 +1123,6 @@ ul, ol {
 
   .currently-pill {
     width: 100%;
-  }
-
-  .about-trait-col {
-    width: 100%;
-    max-width: 240px;
-    margin: 10px auto 0;
   }
 }
 

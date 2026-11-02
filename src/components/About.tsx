@@ -1,16 +1,6 @@
-import { useState } from "react";
-import { Code2, FlaskConical, Lightbulb, FileText, Sparkles } from "lucide-react";
+import { Code2, FlaskConical, Lightbulb, FileText } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { personalInfo } from "../data/portfolio";
-
-const traitsList = [
-  "Problem Solver",
-  "Digital Generalist",
-  "Detail Oriented",
-  "Clean Coder",
-  "Fast Learner",
-  "Team Player",
-];
 
 const currentlyItems = [
   {
@@ -77,12 +67,6 @@ function ContourLines() {
 }
 
 export default function About() {
-  const [traitIndex, setTraitIndex] = useState(0);
-
-  const handleNextTrait = () => {
-    setTraitIndex((prev) => (prev + 1) % traitsList.length);
-  };
-
   return (
     <section id="about" className="about-modern-section">
       <ContourLines />
@@ -150,9 +134,8 @@ export default function About() {
               </div>
             </div>
 
-            {/* Bottom Row: Currently + Stacked Trait Cards */}
+            {/* Bottom Row: Currently */}
             <div className="about-bottom-bar">
-              {/* Left: Currently */}
               <div className="about-currently-col">
                 <span className="currently-label">CURRENTLY</span>
                 <div className="currently-items-row">
@@ -165,38 +148,6 @@ export default function About() {
                       </div>
                     </div>
                   ))}
-                </div>
-              </div>
-
-              {/* Right: Stacked Trait Cards */}
-              <div className="about-trait-col">
-                <div
-                  className="trait-deck"
-                  onClick={handleNextTrait}
-                  title="Klik untuk melihat keahlian berikutnya"
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && handleNextTrait()}
-                >
-                  {/* Background Stacked Cards for 3D Layered Deck effect */}
-                  <div className="trait-card-bg card-back-2" />
-                  <div className="trait-card-bg card-back-1" />
-
-                  {/* Foreground Main Card */}
-                  <div className="trait-card-front">
-                    <div className="trait-card-top">
-                      <span className="trait-top-tag">TRAIT</span>
-                      <Sparkles size={12} className="trait-sparkle-icon" />
-                    </div>
-                    <div className="trait-card-body">
-                      <h4 className="trait-title" key={traitIndex}>
-                        {traitsList[traitIndex]}
-                      </h4>
-                    </div>
-                    <div className="trait-card-hint">
-                      <span className="trait-hint-text">Klik untuk berganti</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
