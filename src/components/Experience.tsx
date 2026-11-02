@@ -57,7 +57,7 @@ const activityPhotos: ActivityPhoto[] = [
     tag: "Magang Industri",
     category: "magang",
     aspect: "landscape",
-    location: "PT Lintas Mediatama, Denpasar Bali",
+    location: "PT. Indo Apps Solusindo, Bali",
     description:
       "Presentasi akhir dan serah terima sistem informasi perizinan Indo GoPermit di hadapan direksi dan tim software engineer.",
   },
@@ -69,7 +69,7 @@ const activityPhotos: ActivityPhoto[] = [
     tag: "Tech Discussion",
     category: "magang",
     aspect: "portrait",
-    location: "Office PT Lintas Mediatama, Bali",
+    location: "PT. Indo Apps Solusindo, Bali",
     description:
       "Diskusi arsitektur sistem web, sprint review, dan eksplorasi solusi teknis bersama tim software engineering di Bali.",
   },
@@ -115,12 +115,12 @@ const activityPhotos: ActivityPhoto[] = [
     src: "/kerja-pt-bulog1.jpeg",
     alt: "Dokumentasi serah terima berkas bantuan pangan di Desa Sumberasri Banyuwangi",
     caption: "Penyaluran Pangan Sumberasri",
-    tag: "Distribusi Lapangan",
+    tag: "Kerja Lapangan BULOG",
     category: "kerja",
     aspect: "portrait",
     location: "Desa Sumberasri, Purwoharjo",
     description:
-      "Rekonsiliasi berkas penerima manfaat bantuan pangan dan pengecekan fisik logistik cadangan beras di Balai Desa Sumberasri.",
+      "Koordinasi penyaluran bantuan cadangan beras pemerintah di pendopo Kecamatan Purwoharjo bersama warga penerima manfaat.",
   },
   {
     id: "act-9",

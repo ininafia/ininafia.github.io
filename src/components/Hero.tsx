@@ -13,19 +13,11 @@ export default function Hero() {
           <span className="marquee-separator" />
           <span className="marquee-tag">SOFTWARE ENGINEER</span>
           <span className="marquee-separator" />
-          <span className="marquee-name">NAFIATUL MUAWANAH</span>
-          <span className="marquee-separator" />
-          <span className="marquee-tag">FULLSTACK DEVELOPER</span>
-          <span className="marquee-separator" />
         </div>
         <div className="hero-marquee-track" aria-hidden="true">
           <span className="marquee-name">NAFIATUL MUAWANAH</span>
           <span className="marquee-separator" />
           <span className="marquee-tag">SOFTWARE ENGINEER</span>
-          <span className="marquee-separator" />
-          <span className="marquee-name">NAFIATUL MUAWANAH</span>
-          <span className="marquee-separator" />
-          <span className="marquee-tag">FULLSTACK DEVELOPER</span>
           <span className="marquee-separator" />
         </div>
       </div>
